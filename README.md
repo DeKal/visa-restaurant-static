@@ -34,7 +34,24 @@ Bookings for the Visa privilege go through the Visa concierge:
 **(84-28) 3824 0515 · visadining@aspirelifestyles.com** (Visa Signature /
 Infinite / Business; program 1 Jul – 30 Sep 2026).
 
-## Deploy
+## Deploy (GitHub Pages)
 
-It's a single static file — host `index.html` anywhere (GitHub Pages, Netlify,
-etc.). For GitHub Pages, enable Pages on the `main` branch root.
+The repo is set up to publish automatically. `index.html` sits at the repo root
+and a `.nojekyll` file disables Jekyll processing.
+
+Two ways to serve it:
+
+**A. GitHub Actions (recommended — auto-deploys on every push)**
+1. Push to `main`.
+2. Repo → Settings → Pages → **Build and deployment → Source: GitHub Actions**.
+3. The workflow in `.github/workflows/deploy.yml` runs and publishes the site.
+   Its URL appears in the Actions run and under Settings → Pages.
+
+**B. Classic "deploy from a branch"**
+1. Repo → Settings → Pages → **Source: Deploy from a branch**.
+2. Branch: `main`, folder: `/ (root)`, then Save.
+
+Either way the live site will be at:
+`https://<user>.github.io/visa-restaurant-static/`
+
+Because everything is inlined into `index.html`, no build step is required.

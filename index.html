@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Saigon After Dark — 1000-Day Anniversary Dining Guide</title>
+<title>Saigon After Dark — A Table for Two · HCMC Dining Guide</title>
 <style>
   :root{
     --ink:#141019; --ink2:#1e1826; --panel:#241d2f; --line:#3a3145;
@@ -27,8 +27,8 @@
               radial-gradient(1px 1px at 40% 70%, rgba(243,234,217,.35), transparent);}
   .eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.32em;text-transform:uppercase;
     color:var(--gold);margin-bottom:18px}
-  .days{font-family:var(--serif);font-size:clamp(64px,15vw,150px);line-height:.85;font-weight:600;
-    color:var(--cream);letter-spacing:-.02em}
+  .days{font-family:var(--serif);font-size:clamp(48px,9vw,92px);line-height:.9;font-weight:600;
+    color:var(--cream);letter-spacing:-.01em}
   .days .amp{color:var(--blush);font-style:italic;font-weight:400}
   h1{font-family:var(--serif);font-size:clamp(26px,4.5vw,42px);font-weight:500;font-style:italic;
     color:var(--gold-soft);margin:12px 0 6px}
@@ -115,6 +115,18 @@
     font-size:12px;font-weight:600;letter-spacing:.04em;padding:7px 14px;cursor:pointer;transition:all .15s}
   .langtoggle button.on{background:var(--gold);color:#2a1e07}
   .langtoggle button:not(.on):hover{color:var(--text)}
+  /* ---------- photos ---------- */
+  .card .thumb{width:calc(100% + 40px);margin:-20px -20px 14px;height:150px;object-fit:cover;
+    border-radius:14px 14px 0 0;display:block;background:var(--panel)}
+  .modal-photo{width:100%;height:220px;object-fit:cover;display:block;border-radius:16px 16px 0 0}
+  .modal-photo + .modal-head{padding-top:20px}
+  /* gallery: big main image + row of thumbnails */
+  .modal-gallery{padding:8px 8px 0}
+  .modal-gallery .mg-main{width:100%;height:300px;object-fit:cover;border-radius:12px;display:block;background:var(--panel)}
+  .mg-strip{display:flex;gap:8px;margin-top:8px}
+  .mg-strip img{flex:1;min-width:0;height:74px;object-fit:cover;border-radius:8px;cursor:pointer;opacity:.65;transition:opacity .15s,outline .15s;outline:2px solid transparent}
+  .mg-strip img:hover{opacity:1}
+  .mg-strip img.active{opacity:1;outline:2px solid var(--gold)}
   .card{cursor:pointer}
   .card .more{margin-top:12px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);
     display:flex;align-items:center;gap:6px}
@@ -171,9 +183,9 @@
 
 <header class="hero">
   <div class="eyebrow" id="t-eyebrow">Ho Chi Minh City · Visa Premium Dining 2026</div>
-  <div class="days">1000<span class="amp">&</span>1</div>
-  <h1 id="t-title">a thousand days, one table</h1>
-  <p class="sub" id="t-sub">A curated dining guide for the milestone — non-Vietnamese, private, and worth remembering. Steakhouse-led, with a few showstoppers along the river and above the skyline.</p>
+  <div class="days" id="t-days">for<span class="amp"> two</span></div>
+  <h1 id="t-title">a table for two</h1>
+  <p class="sub" id="t-sub">A curated guide to Saigon's most romantic tables — private, intimate, and worth dressing up for. Steakhouse-led, with a few showstoppers along the river and above the skyline.</p>
   <p class="prog" id="t-prog">Visa Signature / Infinite / Business · Program <b>1 Jul – 30 Sep 2026</b> · Booked through the Visa concierge</p>
 </header>
 
@@ -198,7 +210,7 @@
     </div>
     <div class="tmpl">
       <button class="copy" onclick="copyTmpl()" id="t-copybtn">Copy</button>
-      <span id="tmpl-text">Hello, I'd like to book a romantic table for 2 at <span class="mk">Prime Steak Boutique &amp; Chill</span> (138–142 Pasteur) for our 1000-day anniversary on <span class="mk">[DATE]</span> at <span class="mk">[TIME, dinner from 17:30]</span>. Please reserve the VIP private room or a secluded candle-lit table, and confirm the per-person price. Booking under Visa <span class="mk">[Signature/Infinite/Business]</span> card, name <span class="mk">[NAME]</span>, phone <span class="mk">[NUMBER]</span>. Thank you!</span>
+      <span id="tmpl-text">Hello, I'd like to book a romantic table for 2 at <span class="mk">Prime Steak Boutique &amp; Chill</span> (138–142 Pasteur) on <span class="mk">[DATE]</span> at <span class="mk">[TIME, dinner from 17:30]</span>. Please reserve the VIP private room or a secluded candle-lit table, and confirm the per-person price. Booking under Visa <span class="mk">[Signature/Infinite/Business]</span> card, name <span class="mk">[NAME]</span>, phone <span class="mk">[NUMBER]</span>. Thank you!</span>
     </div>
     <p class="fine" id="t-fine">Discounts: 10% any bill · 25% on 1–3M VND · 50% over 3M VND (max 2M off). Birthday perk: up to 4 free drinks on bills over 1M VND. Cancel/change ≥ 2 hrs ahead. Min. 2 guests, cardholder must be present.</p>
   </div>
@@ -704,11 +716,46 @@ const links = {
  "Sen @ An Lam Retreat":[["An Lam official dining","https://anlam.com/saigon-river/sgr-dining"],["Saigon Times 'Sen & Riva'","https://english.thesaigontimes.vn/sen-riva-a-refined-culinary-journey-at-an-lam-retreats-saigon-river"],["VN Travel Live (Jul 2025)","https://vntravellive.com/en/sen-riva--dong-chay-am-thuc-moi-tai-an-lam-retreats-saigon-river-d39144.html"]],
 };
 
+// restaurant photos (keyed by name); missing = no photo
+const IMG = {
+ "Aiii House":["images/23155120dsc07140enhanced-2118355b45.jpg","images/khonggiannhahangaiiijpg-a5605d2c56.jpg","images/khonggianphiangoainhahan-e24845159e.jpg"],
+ "An's Saigon":["images/DSF3326jpg-8f325189df.jpg","images/DSC01655jpg-d42585b935.jpg","images/DSCF7386JPG-88fb5d16f9.jpg"],
+ "Black Vinegar":["images/NWSGNFBRestaurantBlackVi-b0fbc28e23.jpg","images/NWBVC29b1png-d807f24fa6.png","images/NWSGNFBRestaurantBlackVi-018095b309.jpg","images/NWSGNFBRestaurantBlackVi-cf33756705.jpg","images/TetSetMenuPremiumBlackVi-4a985262a8.jpg"],
+ "Cela":["images/1png-0810d9eac5.png","images/2png-a9c72dc5ce.png","images/3png-ebe467f3af.png","images/4png-f88921032a.png","images/5png-527cdef80b.png","images/6png-0f62201186.png"],
+ "Dạ Dining (DẠ 夜)":["images/daspacethetheatre31jpg-606d5b5535.jpg","images/dalivecantopoptaoly2jpg-eb0f7f96d3.jpg","images/da2jpg-2948442a6e.jpg","images/da6jpg-d8478e4988.jpg","images/da3jpg-2d2b66f302.jpg"],
+ "Đông Dương":["images/slidedongduong1300317564-7c1b67edfa.webp","images/slidedongduong2300317564-e9fd7fbc89.webp","images/slidedongduong3300317564-ff3529d067.webp"],
+ "Đu Đủ Xanh":["images/r129DuDuXanhfoodjpg-8489dd65ce.jpg","images/landslideimg1jpg-f0b79059a7.jpg","images/landslideimg2jpg-d6907fa1bd.jpg","images/landslideimg3jpg-feb777a019.jpg"],
+ "Homido":["images/image2php-2293941e06.jpg","images/image2php-330f67e8db.jpg","images/image2php-ed415938e2.jpg"],
+ "Home Saigon":["images/HOMESaigonOverviewscaled-0112930980.jpg","images/HOMESaigon1stfloorInteri-6312a33bb3.jpg","images/WokfriedLobsterscaledjpg-a03a21f989.jpg"],
+ "Li Bai":["images/21185007libaifoodphoto10-bd69453566.jpg","images/21113721sheratonsg9544co-4ba9c74a37.jpg","images/21185009pekingduck2cover-2dd5b16475.jpeg"],
+ "Mãn by UnicB":["images/1757306478214-cbeb6d5e07.jpg","images/1757306501157-7af9c08d9e.jpg","images/1757306668374-0a3c5796cc.jpg"],
+ "Matsuri":["images/matsurikhonggian04jpg-ca30620b15.jpg","images/A89A1628jpg-d941365472.jpg","images/DSCF5385jpg-48239117c7.jpg"],
+ "Mam Mam Eatery & Lounge":["images/c7b4RestaurantMamMamViet-82bbd694fe.jpg","images/c58cRestaurantMamMamViet-74df4eb1a2.jpg","images/homepagejpg-69ddd18f64.jpg"],
+ "Nikura":["images/outlet1774846289361873jp-cc91d3e55c.jpg","images/outlet1774846289700898jp-77803a3cfd.jpg","images/outlet1774846289382762jp-e986eebfde.jpg"],
+ "ROS – Yacht Club":["images/ROSPromote1920x10801jpg-efd24a696b.jpg","images/z39542165678779eb3bb1a2c-6c773261dc.jpg","images/z39542390899901809c09367-d5f69f1bf7.jpg"],
+ "Rokusho Saigon":["images/pct02facadejpg-b6def324a7.jpg","images/pct06interiorjpg-031f988a24.jpg","images/MenuRokushoSaigon1024x53-b387c073b0.jpg","images/MenuRokushoSaigon131024x-2f5c9bdcdc.png"],
+ "Sen @ An Lam Retreat":["images/ALRSRSunsetCruisefeature-ae1b9f2186.jpg","images/ALRSRCookingClassfeature-ab1613840c.jpg","images/ALRSRMainPool11e17447124-cd97b80bda.jpg"],
+ "Shamoji Robata Yaki":["images/SHAMOJINDCQ713092022DUCP-6c51597f81.jpg","images/DUCPHAMFOTO0934257244402-a576020126.jpg","images/Q7SMJscaledjpg-dda32c1d9a.jpg","images/Q2SMJ1scaledjpg-44f5797427.jpg","images/DKSMJ4scaledjpg-2e63e2f40c.jpg"],
+ "Towa":["images/TOWALunchViewDesktoppng-46c179d691.png","images/TOWAAllYCEDesktoppng-f1db7a8fef.png","images/TOWATraChieuDesktoppng-2cfbdad691.png"],
+ "Yen Sushi & Sake Pub":["images/1jpg-b8fe4f6623.jpg","images/z4503887983767ffe1761d42-046b914b45.jpg","images/3122383copyscaledjpg-28d2242742.jpg"],
+ "Yen Sushi Premium":["images/c4a4RestaurantYenSushiPr-e7e4ea25a8.jpg","images/vn111345137r98olsu0bx9vm-2433e9ceae.jpg","images/cf0aRestaurantYenSushiPr-8876445367.jpg","images/c00aRestaurantYenSushiPr-a78a4f615b.jpg"],
+ "Basilico":["images/c7e0BasilicoHoChiMinhCit-78891f653c.jpg","images/outlet1766991490473047jp-d7d5511fa8.jpg","images/outlet1751364434519413jp-a8ce961c1e.jpg"],
+ "Godmother":["images/gallery1024x1024jpeg-60501e0d27.jpeg","images/leloijpeg-8fdeb6dd08.jpeg","images/Bannerwebsitescaledjpg-fce3616d77.jpg"],
+ "JW Café":["images/outlet1716272901433697jp-190d046184.jpg","images/outlet1716272901399961jp-c367d96a27.jpg","images/page1673460210767899jpg-f0dcca0acb.jpg"],
+ "Prime Steak Boutique & Chill":["images/primesteakboutiqueandchi-b1e897e14a.webp","images/primesteakboutiqueandchi-0b51307d57.webp","images/SeafoodPlatterscaledjpg-7bae5632fd.jpg","images/FrenchOnionSoupscaledjpg-45706f4b8b.jpg","images/CrabCakesscaledjpg-c0ede684e0.jpg","images/GrilledChickenDiavolasca-7ae4ef1acd.jpg","images/PRIMESteakBoutiqueChill2-5e5aea422c.jpg","images/PRIMESteakBoutiqueChill4-ad881f7bb1.jpg"],
+ "Stoker Woodfired Grill & Bar":["images/1eeded85fdea95e0jpg-b3d3e255c8.jpg","images/398f44f490b11ca6jpg-dd607f1832.jpg","images/2195c697e732ac4cjpg-455b3f10ca.jpg"],
+ "The Albion by Kirk Westaway":["images/26180253thealbionbykirkw-b9d1d02b79.jpg","images/26180253thealbionbykirkw-c09400c3d1.jpg","images/26180253thealbionbykirkw-7915774d26.jpg"],
+ "The Palm Restaurant & Bar":["images/dscf7926enhancednr3jpg-82c509d839.jpg","images/homebanner1jpg-41cf84941d.jpg","images/dscf7960768x432jpg-307c348784.jpg"],
+ "5 Senses":["images/c0ace11a8d3d7a1fc64c35ba-4cd157374b.jpeg","images/c0ace1642d08c9fabe4d458b-72197b2058.jpeg","images/c0ace10dae1c0d4ea040d493-d4b79f5373.jpeg"],
+ "ICON Cruise Saigon":["images/tan37851jpg-6540126128.jpg","images/dsc01812hdr1jpg-00f7ae9077.jpg","images/icsgpromote1920x10801jpg-c1842b780a.jpg"],
+ "Oculus":["images/02150002bansaocuadscf814-0b1a97f564.jpeg","images/02150002bansaocuabansaoc-784f3e2eeb.jpeg","images/02145958bE1BAA3nsaocE1BB-124cfbcfaa.jpg"],
+};
+
 // UI chrome strings
 let LANG = 'vi';
 const UI = {
- en:{eyebrow:"Ho Chi Minh City · Visa Premium Dining 2026", title:"a thousand days, one table",
-  sub:"A curated dining guide for the milestone — non-Vietnamese, private, and worth remembering. Steakhouse-led, with a few showstoppers along the river and above the skyline.",
+ en:{eyebrow:"Ho Chi Minh City · Visa Premium Dining 2026", days:'for<span class="amp"> two</span>', title:"a table for two",
+  sub:"A curated guide to Saigon's most romantic tables — private, intimate, and worth dressing up for. Steakhouse-led, with a few showstoppers along the river and above the skyline.",
   prog:'Visa Signature / Infinite / Business · Program <b>1 Jul – 30 Sep 2026</b> · Booked through the Visa concierge',
   lblShort:"The shortlist", noteShort:'Chosen for private rooms, romance, and a genuine sense of occasion. Prices are per person unless noted; "++" adds 10% VAT + 5% service.',
   lblAll:"Every restaurant", noteAll:"All 31 Ho Chi Minh City venues from the guide. Filter by cuisine, or jump to the ones with private rooms.",
@@ -718,11 +765,11 @@ const UI = {
   footer:'Prices researched 11 Jul 2026 from restaurant sites, Michelin, Tatler, PasGo &amp; TripAdvisor — not published in the Visa guide.<br>✓ = confirmed price · "est." = estimate. Always reconfirm the exact figure and private-room availability when you book.',
   copy:"Copy", copied:"Copied ✓", perPerson:"VND / person", est:"· est.", conf:"· ✓ confirmed", more:"View full detail", countOf:"of",
   mEst:"· estimate", mConf:"· ✓ confirmed", mPlace:"The place", mDishes:"Signature dishes", mPriv:"Private room",
-  mPriceD:"Price detail", mAnniv:"For the anniversary", mAwards:"Awards & standing", mFind:"Find it", mRefs:"References",
+  mPriceD:"Price detail", mAnniv:"For a romantic night", mAwards:"Awards & standing", mFind:"Find it", mRefs:"References",
   mBook:(n)=>`Copy a booking request for ${n}`, mBooked:"Copied to clipboard ✓",
   filters:{All:"All",Steakhouse:"Steakhouse",Japanese:"Japanese",Chinese:"Chinese",European:"European",Fusion:"Fusion",Korean:"Korean",Vietnamese:"Vietnamese",Vegetarian:"Vegetarian","Private rooms":"Private rooms"}},
- vi:{eyebrow:"TP. Hồ Chí Minh · Ẩm thực Cao cấp Visa 2026", title:"một nghìn ngày, một bàn tiệc",
-  sub:"Cẩm nang ẩm thực tuyển chọn cho cột mốc đáng nhớ — phi Việt, riêng tư và đáng ghi dấu. Lấy steakhouse làm trọng tâm, cùng vài điểm đến ấn tượng bên sông và trên cao.",
+ vi:{eyebrow:"TP. Hồ Chí Minh · Ẩm thực Cao cấp Visa 2026", days:'Cho<span class="amp"> Đôi Ta</span>', title:"một bàn ngon",
+  sub:"Cẩm nang tuyển chọn những bàn ăn lãng mạn nhất Sài Gòn — riêng tư, ấm cúng và đáng để diện đẹp. Lấy steakhouse làm trọng tâm, cùng vài điểm đến ấn tượng bên sông và trên cao.",
   prog:'Visa Signature / Infinite / Business · Chương trình <b>1/7 – 30/9/2026</b> · Đặt qua tổng đài Visa',
   lblShort:"Danh sách tuyển chọn", noteShort:'Chọn vì có phòng riêng, lãng mạn và cảm giác trọng đại thực sự. Giá tính theo mỗi người trừ khi ghi chú khác; "++" cộng 10% VAT + 5% phí phục vụ.',
   lblAll:"Tất cả nhà hàng", noteAll:"Toàn bộ 31 nhà hàng tại TP.HCM trong cẩm nang. Lọc theo ẩm thực, hoặc xem nơi có phòng riêng.",
@@ -732,7 +779,7 @@ const UI = {
   footer:'Giá được tra cứu ngày 11/7/2026 từ website nhà hàng, Michelin, Tatler, PasGo &amp; TripAdvisor — không có trong cẩm nang Visa.<br>✓ = giá đã xác nhận · "ước tính" = ước tính. Luôn xác nhận lại giá chính xác và phòng riêng khi đặt bàn.',
   copy:"Sao chép", copied:"Đã sao chép ✓", perPerson:"VNĐ / người", est:"· ước tính", conf:"· ✓ đã xác nhận", more:"Xem chi tiết", countOf:"trong",
   mEst:"· ước tính", mConf:"· ✓ đã xác nhận", mPlace:"Về nhà hàng", mDishes:"Món đặc trưng", mPriv:"Phòng riêng",
-  mPriceD:"Chi tiết giá", mAnniv:"Cho dịp kỷ niệm", mAwards:"Giải thưởng & vị thế", mFind:"Địa chỉ & liên hệ", mRefs:"Nguồn tham khảo",
+  mPriceD:"Chi tiết giá", mAnniv:"Cho buổi tối lãng mạn", mAwards:"Giải thưởng & vị thế", mFind:"Địa chỉ & liên hệ", mRefs:"Nguồn tham khảo",
   mBook:(n)=>`Sao chép mẫu đặt bàn cho ${n}`, mBooked:"Đã sao chép ✓",
   filters:{All:"Tất cả",Steakhouse:"Steakhouse",Japanese:"Nhật",Chinese:"Trung Hoa",European:"Âu",Fusion:"Fusion",Korean:"Hàn",Vietnamese:"Việt",Vegetarian:"Chay","Private rooms":"Có phòng riêng"}}
 };
@@ -799,7 +846,7 @@ const VI = {
 
 // Vietnamese overrides for the featured picks (keyed by name)
 const picksVI = {
- "Prime Steak Boutique & Chill":{rank:"★ Lựa chọn steakhouse", why:"Steakhouse hay nhất (Gourmet Vietnam 2025). Phòng VIP 15 chỗ có bếp riêng, hầm 540 chai vang, bò dry-aged 45/65/100 ngày. 'Catering by PRIME' làm thực đơn kỷ niệm & pairing rượu-thịt.", badge:"Lựa chọn hàng đầu"},
+ "Prime Steak Boutique & Chill":{rank:"★ Lựa chọn steakhouse", why:"Steakhouse hay nhất (Gourmet Vietnam 2025). Phòng VIP 15 chỗ có bếp riêng, hầm 540 chai vang, bò dry-aged 45/65/100 ngày. 'Catering by PRIME' làm thực đơn kỷ niệm & pairing rượu-thịt.", badge:"Hàng đầu"},
  "Stoker Woodfired Grill & Bar":{rank:"Lựa chọn Michelin", why:"Michelin Selected ba năm liền. Sườn Wagyu nướng củi và gan ngỗng áp chảo. Chi nhánh Thảo Điền tặng bánh cho dịp đặc biệt (D1 không có phòng riêng).", badge:""},
  "ICON Cruise Saigon":{rank:"★ Điểm nhấn", why:"Trọn vẹn nhất danh sách: du thuyền sông Sài Gòn với gói kỷ niệm riêng — thực đơn tùy chỉnh, bánh, hoa, phòng VIP, nhạc sống và pháo hoa T6–CN.", badge:"Ấn tượng"},
  "Towa":{rank:"Lãng mạn trên cao", why:"Ẩm thực Nhật tầng 28 view toàn cảnh, bốn khu riêng, và set kỷ niệm 'Romantic Spark' — cùng set 2 khách dành cho cầu hôn.", badge:""},
@@ -851,6 +898,7 @@ function renderGrid(){
   document.getElementById('count').textContent = rows.length + " " + L().countOf + " " + data.length;
   gEl.innerHTML = rows.map(d=>`
     <div class="card" onclick="openModal('${d.n.replace(/'/g,"\\'")}')">
+      ${(IMG[d.n]&&IMG[d.n].length)?`<img class="thumb" src="${IMG[d.n][0]}" alt="${d.n}" loading="lazy">`:''}
       <div class="top"><h3>${d.n}</h3><span class="cuisine-tag">${dField(d,'c')}</span></div>
       <div class="price-line">${d.price} <span class="est">${d.est?L().est:L().conf}</span></div>
       <div class="concept">${dField(d,'concept')}</div>
@@ -873,6 +921,7 @@ function setLang(lang){
   document.documentElement.lang=lang;
   const u=L();
   document.getElementById('t-eyebrow').innerHTML=u.eyebrow;
+  document.getElementById('t-days').innerHTML=u.days;
   document.getElementById('t-title').textContent=u.title;
   document.getElementById('t-sub').textContent=u.sub;
   document.getElementById('t-prog').innerHTML=u.prog;
@@ -907,6 +956,7 @@ function openModal(name){
   const flag = (LANG==='vi'&&VI[name]&&VI[name].flag!==undefined)?VI[name].flag:(x.flag||'');
   const modal = document.getElementById('modal');
   modal.innerHTML = `
+    ${(IMG[name]&&IMG[name].length)?`<div class="modal-gallery"><img class="mg-main" id="mgMain" src="${IMG[name][0]}" alt="${d.n}">${IMG[name].length>1?`<div class="mg-strip">${IMG[name].map((src,i)=>`<img src="${src}" alt="${d.n}" class="${i===0?'active':''}" loading="lazy" onclick="swapGallery(this,'${src}')">`).join('')}</div>`:''}</div>`:''}
     <div class="modal-head">
       <button class="modal-close" onclick="closeModal()">×</button>
       <div class="tag">${dField(d,'c')}</div>
@@ -934,12 +984,19 @@ function closeModal(){
   document.getElementById('modalBg').classList.remove('open');
   document.body.style.overflow='';
 }
+function swapGallery(thumb,src){
+  const main=document.getElementById('mgMain');
+  if(main) main.src=src;
+  const strip=thumb.parentNode;
+  strip.querySelectorAll('img').forEach(i=>i.classList.remove('active'));
+  thumb.classList.add('active');
+}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 function bookThis(name){
   const d = data.find(x=>x.n===name);
   const msg = (LANG==='vi')
-    ? `Xin chào, tôi muốn đặt bàn lãng mạn cho 2 người tại ${name} (${d.addr}) nhân dịp kỷ niệm 1000 ngày vào [NGÀY] lúc [GIỜ]. Vui lòng giữ phòng riêng hoặc bàn kín đáo, và xác nhận giá mỗi người. Đặt bằng thẻ Visa [Signature/Infinite/Business], tên [TÊN], điện thoại [SỐ]. Cảm ơn!`
-    : `Hello, I'd like to book a romantic table for 2 at ${name} (${d.addr}) for our 1000-day anniversary on [DATE] at [TIME]. Please reserve a private room or a secluded table, and confirm the per-person price. Booking under Visa [Signature/Infinite/Business] card, name [NAME], phone [NUMBER]. Thank you!`;
+    ? `Xin chào, tôi muốn đặt bàn lãng mạn cho 2 người tại ${name} (${d.addr}) vào [NGÀY] lúc [GIỜ]. Vui lòng giữ phòng riêng hoặc bàn kín đáo, và xác nhận giá mỗi người. Đặt bằng thẻ Visa [Signature/Infinite/Business], tên [TÊN], điện thoại [SỐ]. Cảm ơn!`
+    : `Hello, I'd like to book a romantic table for 2 at ${name} (${d.addr}) on [DATE] at [TIME]. Please reserve a private room or a secluded table, and confirm the per-person price. Booking under Visa [Signature/Infinite/Business] card, name [NAME], phone [NUMBER]. Thank you!`;
   navigator.clipboard.writeText(msg).then(()=>{
     const b=document.querySelector('.mbook'); const o=b.textContent;
     b.textContent=L().mBooked; setTimeout(()=>b.textContent=o,1800);

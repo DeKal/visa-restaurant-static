@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saigon After Dark — 1000-Day Anniversary Dining Guide</title>
+<style>
+  :root{
+    --ink:#141019; --ink2:#1e1826; --panel:#241d2f; --line:#3a3145;
+    --gold:#d9a94e; --gold-soft:#e8c884; --blush:#e58f7b; --cream:#f3ead9;
+    --text:#efe7d8; --muted:#a99db3; --green:#7fae7a;
+    --serif:"Cormorant Garamond",Georgia,serif;
+    --sans:"Inter","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;padding:64px 24px 40px;text-align:center;overflow:hidden;
+    background:radial-gradient(120% 90% at 50% 0%, #2a2035 0%, var(--ink) 60%);}
+  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(2px 2px at 20% 30%, rgba(217,169,78,.5), transparent),
+              radial-gradient(1.5px 1.5px at 70% 20%, rgba(229,143,123,.45), transparent),
+              radial-gradient(1.5px 1.5px at 85% 60%, rgba(217,169,78,.4), transparent),
+              radial-gradient(1px 1px at 40% 70%, rgba(243,234,217,.35), transparent);}
+  .eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:18px}
+  .days{font-family:var(--serif);font-size:clamp(64px,15vw,150px);line-height:.85;font-weight:600;
+    color:var(--cream);letter-spacing:-.02em}
+  .days .amp{color:var(--blush);font-style:italic;font-weight:400}
+  h1{font-family:var(--serif);font-size:clamp(26px,4.5vw,42px);font-weight:500;font-style:italic;
+    color:var(--gold-soft);margin:12px 0 6px}
+  .sub{color:var(--muted);max-width:560px;margin:0 auto;font-size:15px}
+  .prog{margin-top:22px;font-size:12.5px;color:var(--muted)}
+  .prog b{color:var(--gold-soft);font-weight:600}
+
+  /* ---------- Featured picks ---------- */
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  .section-label{font-family:var(--sans);font-size:12px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--gold);margin:56px 0 4px;display:flex;align-items:center;gap:14px}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line)}
+  .section-note{color:var(--muted);font-size:14px;margin-bottom:22px;max-width:640px}
+
+  .picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .pick{background:linear-gradient(160deg,var(--panel),var(--ink2));border:1px solid var(--line);
+    border-radius:14px;padding:22px;position:relative;transition:transform .18s,border-color .18s}
+  .pick:hover{transform:translateY(-4px);border-color:var(--gold)}
+  .pick .rank{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--blush)}
+  .pick.top{border-color:var(--gold);box-shadow:0 0 0 1px rgba(217,169,78,.25),0 18px 40px -20px rgba(217,169,78,.4)}
+  .pick.top .rank{color:var(--gold)}
+  .pick h3{font-family:var(--serif);font-size:26px;font-weight:600;margin:6px 0 8px;color:var(--cream);line-height:1.05}
+  .pick .price{font-size:13px;color:var(--gold-soft);font-weight:600;margin-bottom:10px}
+  .pick p{font-size:13.5px;color:var(--muted);line-height:1.5}
+  .badge{position:absolute;top:16px;right:16px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    background:var(--gold);color:#2a1e07;padding:4px 9px;border-radius:20px;font-weight:600}
+  .badge.wow{background:var(--blush);color:#3a140c}
+
+  /* ---------- Filters ---------- */
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 26px;position:sticky;top:0;z-index:20;
+    padding:14px 0;background:linear-gradient(var(--ink) 70%, transparent)}
+  .chip{font-family:var(--sans);font-size:13px;color:var(--muted);background:transparent;
+    border:1px solid var(--line);border-radius:22px;padding:7px 15px;cursor:pointer;transition:all .15s;white-space:nowrap}
+  .chip:hover{color:var(--text);border-color:var(--muted)}
+  .chip.active{background:var(--gold);border-color:var(--gold);color:#2a1e07;font-weight:600}
+  .count{color:var(--muted);font-size:13px;margin-left:auto;align-self:center}
+
+  /* ---------- Cards grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;padding-bottom:60px}
+  .card{background:var(--ink2);border:1px solid var(--line);border-radius:14px;padding:20px;
+    display:flex;flex-direction:column;transition:border-color .18s,transform .18s}
+  .card:hover{border-color:var(--gold);transform:translateY(-3px)}
+  .card.dimmed{display:none}
+  .card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px}
+  .card h3{font-family:var(--serif);font-size:23px;font-weight:600;color:var(--cream);line-height:1.05}
+  .cuisine-tag{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);
+    border:1px solid var(--line);border-radius:6px;padding:3px 8px;white-space:nowrap;flex-shrink:0}
+  .price-line{font-size:14px;color:var(--gold-soft);font-weight:600;margin:2px 0 12px}
+  .price-line .est{color:var(--muted);font-weight:400;font-size:12px}
+  .concept{font-size:13px;color:var(--muted);margin-bottom:14px;flex:1}
+  .rows{border-top:1px solid var(--line);padding-top:12px;display:grid;gap:8px}
+  .row{display:grid;grid-template-columns:74px 1fr;gap:10px;font-size:12.5px}
+  .row .k{color:var(--gold);text-transform:uppercase;letter-spacing:.06em;font-size:10.5px;padding-top:2px}
+  .row .v{color:var(--text)}
+  .row .v.yes{color:var(--green)}
+  .row .v.no{color:var(--blush)}
+  .awards{margin-top:12px;font-size:11.5px;color:var(--muted);font-style:italic}
+  .meta{margin-top:12px;font-size:11px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+  .meta .phone{color:var(--gold-soft)}
+
+  /* ---------- Booking ---------- */
+  .booking{background:linear-gradient(160deg,#2a2035,var(--ink2));border:1px solid var(--gold);
+    border-radius:16px;padding:32px;margin:20px 0 70px}
+  .booking h2{font-family:var(--serif);font-size:30px;font-weight:600;color:var(--gold-soft);margin-bottom:6px}
+  .booking p{color:var(--muted);font-size:14px;margin-bottom:16px;max-width:680px}
+  .booking .contact{display:flex;flex-wrap:wrap;gap:24px;margin-bottom:22px}
+  .booking .contact div{font-size:13px}
+  .booking .contact .lbl{color:var(--gold);text-transform:uppercase;letter-spacing:.1em;font-size:10.5px;margin-bottom:3px}
+  .booking .contact .val{color:var(--cream);font-size:16px;font-family:var(--serif)}
+  .tmpl{background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+    font-size:13.5px;color:var(--text);line-height:1.6;position:relative}
+  .tmpl .mk{color:var(--gold-soft)}
+  .copy{position:absolute;top:12px;right:12px;background:var(--gold);color:#2a1e07;border:none;
+    border-radius:7px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--sans)}
+  .copy:hover{background:var(--gold-soft)}
+  .fine{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.6}
+
+  footer{text-align:center;color:var(--muted);font-size:11.5px;padding:0 24px 50px;line-height:1.7}
+
+  /* ---------- language toggle ---------- */
+  .langtoggle{position:fixed;top:16px;right:16px;z-index:60;display:flex;background:rgba(36,29,47,.9);
+    border:1px solid var(--line);border-radius:22px;overflow:hidden;backdrop-filter:blur(6px)}
+  .langtoggle button{background:transparent;border:none;color:var(--muted);font-family:var(--sans);
+    font-size:12px;font-weight:600;letter-spacing:.04em;padding:7px 14px;cursor:pointer;transition:all .15s}
+  .langtoggle button.on{background:var(--gold);color:#2a1e07}
+  .langtoggle button:not(.on):hover{color:var(--text)}
+  .card{cursor:pointer}
+  .card .more{margin-top:12px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);
+    display:flex;align-items:center;gap:6px}
+  .card .more::after{content:"→";transition:transform .18s}
+  .card:hover .more::after{transform:translateX(4px)}
+  .modal-bg{position:fixed;inset:0;background:rgba(8,5,12,.82);backdrop-filter:blur(4px);
+    display:none;align-items:flex-start;justify-content:center;z-index:100;padding:40px 20px;overflow-y:auto}
+  .modal-bg.open{display:flex}
+  .modal{background:linear-gradient(165deg,#241d2f,#181320);border:1px solid var(--gold);
+    border-radius:16px;max-width:720px;width:100%;padding:0;position:relative;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,.7);animation:rise .25s ease}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  .modal-head{padding:28px 32px 20px;border-bottom:1px solid var(--line);position:relative}
+  .modal-head .tag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .modal-head h2{font-family:var(--serif);font-size:34px;font-weight:600;color:var(--cream);line-height:1.02;margin:6px 0 8px}
+  .modal-head .mprice{font-size:15px;color:var(--gold-soft);font-weight:600}
+  .modal-head .mprice .est{color:var(--muted);font-weight:400;font-size:12.5px}
+  .modal-close{position:absolute;top:20px;right:22px;width:34px;height:34px;border-radius:50%;
+    background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--text);font-size:20px;
+    cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center}
+  .modal-close:hover{background:var(--gold);color:#2a1e07;border-color:var(--gold)}
+  .modal-body{padding:22px 32px 30px}
+  .mblock{margin-bottom:18px}
+  .mblock .mlabel{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
+    margin-bottom:6px;display:flex;align-items:center;gap:10px}
+  .mblock .mlabel::after{content:"";flex:1;height:1px;background:var(--line)}
+  .mblock p{font-size:13.5px;color:var(--text);line-height:1.6}
+  .mblock .muted{color:var(--muted)}
+  .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .mgrid .mblock{margin-bottom:0}
+  .dish-list{list-style:none;font-size:13px;color:var(--text);line-height:1.7}
+  .dish-list li::before{content:"◦ ";color:var(--gold)}
+  .mflag{background:rgba(229,143,123,.1);border:1px solid rgba(229,143,123,.35);border-radius:8px;
+    padding:10px 14px;font-size:12.5px;color:var(--blush);margin-top:6px}
+  .mcontact{background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.7}
+  .mcontact .k{color:var(--gold);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+  .mlinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .mlinks a{font-size:12px;color:var(--gold-soft);text-decoration:none;background:rgba(217,169,78,.09);
+    border:1px solid var(--line);border-radius:20px;padding:5px 12px;transition:all .15s}
+  .mlinks a:hover{background:var(--gold);color:#2a1e07;border-color:var(--gold)}
+  .mbook{width:100%;margin-top:20px;background:var(--gold);color:#2a1e07;border:none;border-radius:10px;
+    padding:13px;font-size:13px;font-weight:600;font-family:var(--sans);cursor:pointer;letter-spacing:.02em}
+  .mbook:hover{background:var(--gold-soft)}
+  @media(max-width:560px){.row{grid-template-columns:64px 1fr}.mgrid{grid-template-columns:1fr}.modal-head h2{font-size:27px}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="langtoggle">
+  <button id="lang-en" class="on" onclick="setLang('en')">EN</button>
+  <button id="lang-vi" onclick="setLang('vi')">VI</button>
+</div>
+
+<header class="hero">
+  <div class="eyebrow" id="t-eyebrow">Ho Chi Minh City · Visa Premium Dining 2026</div>
+  <div class="days">1000<span class="amp">&</span>1</div>
+  <h1 id="t-title">a thousand days, one table</h1>
+  <p class="sub" id="t-sub">A curated dining guide for the milestone — non-Vietnamese, private, and worth remembering. Steakhouse-led, with a few showstoppers along the river and above the skyline.</p>
+  <p class="prog" id="t-prog">Visa Signature / Infinite / Business · Program <b>1 Jul – 30 Sep 2026</b> · Booked through the Visa concierge</p>
+</header>
+
+<div class="wrap">
+
+  <div class="section-label" id="t-lbl-shortlist">The shortlist</div>
+  <p class="section-note" id="t-note-shortlist">Chosen for private rooms, romance, and a genuine sense of occasion. Prices are per person unless noted; "++" adds 10% VAT + 5% service.</p>
+  <div class="picks" id="picks"></div>
+
+  <div class="section-label" id="t-lbl-all">Every restaurant</div>
+  <p class="section-note" id="t-note-all">All 31 Ho Chi Minh City venues from the guide. Filter by cuisine, or jump to the ones with private rooms.</p>
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="grid"></div>
+
+  <div class="booking">
+    <h2 id="t-book-h">Reserve it</h2>
+    <p id="t-book-p">Bookings for the privilege go through the Visa concierge — not the restaurant directly, or you won't get the program rate. Each restaurant's own number is on its card if you'd rather book outside the program.</p>
+    <div class="contact">
+      <div><div class="lbl" id="t-c-hotline">Hotline</div><div class="val">(84-28) 3824 0515</div></div>
+      <div><div class="lbl" id="t-c-email">Email</div><div class="val">visadining@aspirelifestyles.com</div></div>
+      <div><div class="lbl" id="t-c-lead">Lead time</div><div class="val" id="t-c-leadval">Book ≥ 1 day ahead</div></div>
+    </div>
+    <div class="tmpl">
+      <button class="copy" onclick="copyTmpl()" id="t-copybtn">Copy</button>
+      <span id="tmpl-text">Hello, I'd like to book a romantic table for 2 at <span class="mk">Prime Steak Boutique &amp; Chill</span> (138–142 Pasteur) for our 1000-day anniversary on <span class="mk">[DATE]</span> at <span class="mk">[TIME, dinner from 17:30]</span>. Please reserve the VIP private room or a secluded candle-lit table, and confirm the per-person price. Booking under Visa <span class="mk">[Signature/Infinite/Business]</span> card, name <span class="mk">[NAME]</span>, phone <span class="mk">[NUMBER]</span>. Thank you!</span>
+    </div>
+    <p class="fine" id="t-fine">Discounts: 10% any bill · 25% on 1–3M VND · 50% over 3M VND (max 2M off). Birthday perk: up to 4 free drinks on bills over 1M VND. Cancel/change ≥ 2 hrs ahead. Min. 2 guests, cardholder must be present.</p>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal"></div>
+</div>
+
+<footer id="t-footer">
+  Prices researched 11 Jul 2026 from restaurant sites, Michelin, Tatler, PasGo &amp; TripAdvisor — not published in the Visa guide.<br>
+  ✓ = confirmed price · "est." = estimate. Always reconfirm the exact figure and private-room availability when you book.
+</footer>
+
+<script>
+const picks = [
+  {rank:"★ Steakhouse pick", name:"Prime Steak Boutique & Chill", price:"~2,000,000–3,500,000+", badge:"Top pick", top:true,
+   why:"Best Steakhouse (Gourmet Vietnam 2025). A VIP private room that seats 15 with its own cooking station, 540-bottle wine list, and dry-aged beef at 45/65/100 days. 'Catering by PRIME' does anniversary menus & wine-steak pairings."},
+  {rank:"Michelin alt.", name:"Stoker Woodfired Grill & Bar", price:"~500,000–1,000,000", badge:"", top:false,
+   why:"Michelin Selected three years running. Woodfired Wagyu ribs and seared foie gras. The Thảo Điền branch throws in a complimentary cake for special occasions (D1 has no private room)."},
+  {rank:"★ The wow", name:"ICON Cruise Saigon", price:"from 1,550,000 ++", badge:"Wow", wow:true, top:false,
+   why:"The most complete celebration on the list: a Saigon River cruise with a dedicated anniversary package — custom menu, cake, flowers, VIP private room, live music, and fireworks Fri–Sun."},
+  {rank:"Skyline romance", name:"Towa", price:"~1,500,000–2,800,000", badge:"", top:false,
+   why:"28th-floor Japanese with panoramic views, four private areas, and a named 'Romantic Spark' anniversary set menu — plus a two-guest private setup meant for proposals."},
+  {rank:"Rooftop splurge", name:"The Albion by Kirk Westaway", price:"1,850,000 ++ tasting", badge:"", top:false,
+   why:"Modern British by 2-Michelin-star Kirk Westaway, on the 23rd-floor rooftop of Hôtel des Arts. A bespoke anniversary package and window-side tables over the city."},
+];
+
+// cuisine groups: Steakhouse, Japanese, Chinese, European, Fusion/Cruise, Vietnamese, Vegetarian, Korean
+const data = [
+ {n:"Prime Steak Boutique & Chill",c:"Steakhouse",g:"Steakhouse",price:"~2,000,000–3,500,000+",est:true,
+  concept:"HCMC's first boutique dry-aged steakhouse; Exec Chef Khai Vu (25+ yrs Las Vegas), ~900m² across 3 floors + rooftop bar.",
+  priv:"yes",privtxt:"VIP room up to 15 — with its own cooking station",
+  anniv:"'Catering by PRIME' anniversary menus + wine-steak pairing; 540-bottle wine list; candle-lit",
+  sig:"Dry-aged beef 45/65/100 days; foie gras; house sauces",
+  awards:"Best Steakhouse — Gourmet Vietnam 2025; TripAdvisor 4.9/5",
+  addr:"138–142 Pasteur, D1", phone:"0868 060 166 / 0913 51 53 51", hours:"Mon–Fri 11–14 & 17:30–23:30; wknd 17:30–23:30"},
+ {n:"Stoker Woodfired Grill & Bar",c:"Steakhouse",g:"Steakhouse",price:"~500,000–1,000,000",est:true,
+  concept:"Wood-fired Euro-American steakhouse; 4 fire-cooking sections + dry-aging room; D1 has an upstairs DRAM cocktail/cigar bar.",
+  priv:"no",privtxt:"D1: none (cap 80). Thảo Điền: whole-venue hire",
+  anniv:"Complimentary cake for special occasions (Thảo Điền); popular date-night",
+  sig:"Grilled Wagyu ribs; seared foie gras; smoked salmon; crispy duck",
+  awards:"MICHELIN Selected 2023–2025; World Luxury Restaurant Awards 2025",
+  addr:"44 Mạc Thị Bưởi, D1; + Thảo Điền", phone:"+84 868 953 102", hours:"D1 Mon–Fri 11:30–24; wknd 16–24"},
+ {n:"Towa",c:"Japanese · views",g:"Japanese",price:"~1,500,000–2,800,000",est:true,
+  concept:"Japanese fine dining + omakase bar + Ginza cocktail lounge on the 28th floor with a 360° terrace; also a Cantonese menu.",
+  priv:"yes",privtxt:"Four private areas + a 2-guest proposal setup",
+  anniv:"'Romantic Spark' anniversary set menu + couple menu; complimentary dessert",
+  sig:"Omakase; salmon & tuna-belly sashimi; fusion tapas",
+  awards:"TripAdvisor 4.8/5 (616), #27 of 8,016",
+  addr:"L28, Sedona Suites, 92–94 Nam Kỳ Khởi Nghĩa, D1", phone:"090 316 1038", hours:"Daily 11:30–22:30"},
+ {n:"Yen Sushi Premium",c:"Japanese",g:"Japanese",price:"1,698,000–2,200,000 ++",est:false,
+  concept:"Authentic Kaiseki & Omakase in a traditional Ryotei villa with ancient trees and an old wooden gate; Chef Hirohito Sato (31+ yrs).",
+  priv:"yes",privtxt:"VIP rooms up to 30",
+  anniv:"VIP rooms marketed for anniversaries; omakase order 6–24h ahead",
+  sig:"Madai, Anago, Amaebi; Zuwai crab; Hitachi A5 wagyu; caviar",
+  awards:"—",
+  addr:"123 Bà Huyện Thanh Quan, D3; + Thảo Điền", phone:"1900 066 890", hours:"Daily 10:30–14 & 17–22"},
+ {n:"Nikura",c:"Nikkei",g:"Japanese",price:"lunch 580,000 ++",est:true,
+  concept:"HCMC's first dedicated Nikkei (Japanese-Peruvian); Chef Ivan Casusol from Lima. At the JW Marriott.",
+  priv:"yes",privtxt:"2 private rooms + garden terrace + chef's table (8–10)",
+  anniv:"Private rooms, terrace & cocktail bar support celebrations; no named package",
+  sig:"Tiradito Concha; scallop in lime cream; A8 Wagyu; Nikura Rice",
+  awards:"New (opened 2025)",
+  addr:"G Fl, JW Marriott, Hai Bà Trưng & Lê Duẩn, D1", phone:"+84 914 296 754", hours:"Lunch 11:30–14:30; Dinner 18–22"},
+ {n:"Matsuri",c:"Japanese",g:"Japanese",price:"bento from 138,000+",est:true,
+  concept:"Japanese 'festival' — Washoku + Yoshoku, modern izakaya with ~300 dishes across several branches.",
+  priv:"yes",privtxt:"Private room up to 12 (no room fee)",
+  anniv:"No formal package; Nguyễn Huệ branch has a river/fireworks view",
+  sig:"Menu breadth; Liên Hoa sushi rolls; char-siu ramen",
+  awards:"—",
+  addr:"Nguyễn Huệ; Vincom Thảo Điền; Landmark 81", phone:"0968 708 812", hours:"Daily 11–22 (LO 21:45)"},
+ {n:"Rokusho Saigon",c:"Japanese",g:"Japanese",price:"~500,000–900,000",est:true,
+  concept:"Upscale-relaxed izakaya + mixology bar with a Tokyo back-alley feel; open kitchen, strong sake list.",
+  priv:"no",privtxt:"None (single open space)",
+  anniv:"Not found",
+  sig:"Skewers/yakitori; tuna yukhoe; udon",
+  awards:"TripAdvisor 5.0/5 · 'Michelin founders' unverified",
+  addr:"02 Thi Sách, Bến Nghé Ward, D1", phone:"078 388 8802", hours:"Daily 17–01"},
+ {n:"Yen Sushi & Sake Pub",c:"Japanese",g:"Japanese",price:"~400,000–900,000",est:true,
+  concept:"Japanese-fusion izakaya/pub, lightly charcoal-grilled with imported ingredients and a tuna-cutting show.",
+  priv:"yes",privtxt:"Tatami rooms + 'Party Service'",
+  anniv:"Party Service (unpublished); no specific package",
+  sig:"Yen Deluxe Sashimi (788,000); unagi roll; poke",
+  awards:"—",
+  addr:"55 Xuân Thủy; 2B Lê Duẩn; 68 Lê Lợi + more", phone:"1900 066 890", hours:"Daily 10:30–14 & 17–22"},
+ {n:"Shamoji Robata Yaki",c:"Japanese",g:"Japanese",price:"~400,000–800,000",est:true,
+  concept:"Robatayaki / warayaki (charcoal & straw-fire) izakaya, wabi-sabi theme, weekly air-flown Toyosu ingredients.",
+  priv:"no",privtxt:"Not found",
+  anniv:"Tuna-cutting + straw-fire performances",
+  sig:"Warayaki tuna steak; Hamayaki saba; warayaki goat thigh",
+  awards:"—",
+  addr:"5 branches across the city", phone:"1900 066 890", hours:"Daily 10:30–14 & 17–02"},
+ {n:"5 Senses",c:"Japanese fusion",g:"Japanese",price:"no reliable figure",est:true,
+  concept:"Modern Japanese fusion 'Art of Fusion', each dish presented as artwork; casual-elegant, at Hotel Nikko.",
+  priv:"no",privtxt:"Not found online",
+  anniv:"Not found online",
+  sig:"Wakame & sea-grape salad; Black Angus tenderloin; panna cotta",
+  awards:"— (verify still trading)",
+  addr:"G Fl, Hotel Nikko, 235 Nguyễn Văn Cừ, D1", phone:"+84 28 6688 7888", hours:"Daily 15–23"},
+ {n:"Li Bai",c:"Cantonese",g:"Chinese",price:"1,490,000 NETT duck set",est:false,
+  concept:"Upscale Cantonese since 2003; poet-themed interiors, 60+ dim sum varieties, at the Sheraton.",
+  priv:"yes",privtxt:"2 VIP rooms (12–20 ea, combinable ~35) + corners",
+  anniv:"Private rooms + seasonal menus; cake/champagne via hotel",
+  sig:"10-day dry-aged Peking duck (best in HCMC); superior abalone dumplings",
+  awards:"Luxuo Best Innovation 2024; TripAdvisor Travellers' Choice '24 & '25",
+  addr:"L2, Sheraton Saigon, 88 Đồng Khởi, D1", phone:"+84 28 3521 9148", hours:"Mon–Sat 11–14:30 & 18–22"},
+ {n:"Dạ Dining (DẠ 夜)",c:"Modern Chinese",g:"Chinese",price:"not published ($$$$)",est:true,
+  concept:"Modern Chinese 'shaped by Vietnamese terroir'; cinematic nocturnal theme, panoramic night views, live performances.",
+  priv:"yes",privtxt:"VIP room ~16 (hire ~25–35M)",
+  anniv:"Cinematic ambiance + night views + performances; VIP/birthday service",
+  sig:"14-day dry-aged truffle Duck; Eel Soup; Abalone + foie gras",
+  awards:"'Highly Recommended' Gourmet Vietnam 2025",
+  addr:"26th Fl, Centec Tower, 72–74 NTMK, D3", phone:"+84 96 943 4570", hours:"Evening/nocturnal (to 03:00)"},
+ {n:"Black Vinegar",c:"Modern Cantonese",g:"Chinese",price:"lunch 490,000 ++/2",est:false,
+  concept:"Modern Cantonese with a dedicated Crudo Bar (champagne & seafood) and private rooms; Chef Sam Liang.",
+  priv:"yes",privtxt:"Multiple private rooms + Crudo Bar",
+  anniv:"Private rooms + Crudo Bar suit celebrations; no formal package",
+  sig:"Poached chicken w/ Sichuan sauce; xiao long bao; dim sum",
+  awards:"Favorite Restaurants — Flavors Awards 2024",
+  addr:"1F, New World Saigon, 76 Lê Lai, D1", phone:"0914 391 171", hours:"Daily 11:30–15 & 17:30–22:30"},
+ {n:"Mãn by UnicB",c:"Jiangnan Chinese",g:"Chinese",price:"~600,000–1,200,000",est:true,
+  concept:"Contemporary Jiangnan cuisine (Zhejiang/Suzhou/Hangzhou) with modern technique; successor to Hanoi's UnicB.",
+  priv:"no",privtxt:"'Private corners' seating only",
+  anniv:"Not found",
+  sig:"Yang Guifei Shrimp Ball; New-style Peking Duck",
+  awards:"'Tatler nominated' unverified",
+  addr:"25B Tú Xương, D3", phone:"035 486 6979", hours:"Daily 11–14:30 & 17–22:30"},
+ {n:"The Albion by Kirk Westaway",c:"European · rooftop",g:"European",price:"1,850,000 ++ tasting",est:false,
+  concept:"Modern European 'Reinventing British' by 2-Michelin-star Kirk Westaway; 1930s elegance, rooftop panoramic views.",
+  priv:"no",privtxt:"No dedicated room; window tables; buy-outs",
+  anniv:"Bespoke anniversary package + window-side tables",
+  sig:"The Albion Tomato; refined Eton Mess; Wagyu w/ stout gravy",
+  awards:"MICHELIN Selected 2025; Tatler Restaurant of the Year 2025",
+  addr:"23rd Fl, Hôtel des Arts, 76–78 NTMK, D3", phone:"0901 379 129", hours:"Daily 17:30–23:30; Sun brunch"},
+ {n:"Basilico",c:"Italian",g:"European",price:"790,000–1,490,000 net promo",est:false,
+  concept:"Authentic Italian trattoria + contemporary; new 2026 menu by Chef Francesco Leone; handmade pasta, wood-oven pizza.",
+  priv:"no",privtxt:"Not Basilico-specific (hotel event venues)",
+  anniv:"Ran a Valentine's couple menu; does celebration sets",
+  sig:"Tajima Wagyu; Imperial caviar; handmade pasta",
+  awards:"—",
+  addr:"JW Marriott, Nguyễn Du & Lê Văn Hưu, D1", phone:"+84 28 3520 9999", hours:"Daily 06:30–22"},
+ {n:"The Palm Restaurant & Bar",c:"French · rooftop",g:"European",price:"~700,000–1,500,000+",est:true,
+  concept:"Rooftop French-Mediterranean 'tranquil oasis' with poolside seating over Turtle Lake; Chef Sakal Phoeung.",
+  priv:"no",privtxt:"Rooftop restaurant/bar + pool",
+  anniv:"Romantic rooftop / Turtle Lake sunset ambiance",
+  sig:"Beef Wellington; tuna tataki; tableside duck; baked oysters",
+  awards:"TripAdvisor 5.0/5 (new venue)",
+  addr:"10th Fl, Bạch Suites, 10A Phạm Ngọc Thạch, D3", phone:"028 3891 9999", hours:"Dinner 16–23"},
+ {n:"ICON Cruise Saigon",c:"Fusion · river cruise",g:"Fusion",price:"from 1,550,000 ++",est:false,
+  concept:"Luxury Saigon River dinner cruise; fine dining, live band, performances and fireworks Fri–Sun; outdoor Skydeck.",
+  priv:"yes",privtxt:"Private rooms + VIP décor; Skydeck to 150",
+  anniv:"MOST COMPLETE — custom menu, cake, flowers, dedicated seating, VIP room, live entertainment",
+  sig:"Fixed multi-course 'Set Menu Signature'",
+  awards:"New (~2024–25)",
+  addr:"Pier 05 Nguyễn Tất Thành, D4", phone:"076 364 9988", hours:"Dinner boards 18:00, sails 19:30"},
+ {n:"ROS – Yacht Club",c:"Contemporary Asian",g:"Fusion",price:"not published",est:true,
+  concept:"Riverside contemporary Asian; day-to-night dining + river lounge + mixology + live entertainment; Chef Vĩnh.",
+  priv:"no",privtxt:"Riverfront tables; hosts weddings/events",
+  anniv:"Event hosting + riverfront tables — strong romantic fit",
+  sig:"Image-only menu; set menu 1–2 days ahead",
+  awards:"Best Asian Restaurant 2023 (Dubai)",
+  addr:"Bạch Đằng Harbour, 10B Tôn Đức Thắng, D1", phone:"+84 903 796 236", hours:"Lunch 11–14; Dinner 17–22:30"},
+ {n:"Oculus",c:"Cocktail · dining",g:"Fusion",price:"cocktails ~250–400k",est:true,
+  concept:"Cocktail bar + multi-sensory dining; the space is designed like an eye; cocktail-food pairing is the signature.",
+  priv:"no",privtxt:"Centered on the circular bar",
+  anniv:"Intimate cocktail bar, not a celebration venue",
+  sig:"'The Steady Look' cocktail w/ Chutoro; caviar daikon; uni toast",
+  awards:"'Tatler Top 100 Bars' unverified",
+  addr:"54 Võ Văn Tần, D3", phone:"+84 928 993 993", hours:"Tue–Thu 19–01; wknd to 02"},
+ {n:"JW Café",c:"International buffet",g:"European",price:"buffet 690,000–1,700,000 ++",est:false,
+  concept:"All-day international buffet, repositioned toward premium seafood; live cooking stations + à la carte.",
+  priv:"no",privtxt:"Not JW-Café specific",
+  anniv:"Promo buffets (30% off Club Marriott)",
+  sig:"Premium seafood spread; live stations",
+  awards:"—",
+  addr:"JW Marriott, Nguyễn Du & Lê Văn Hưu, D1", phone:"+84 28 3520 9999", hours:"All-day"},
+ {n:"Godmother",c:"International",g:"European",price:"~150,000–350,000",est:true,
+  concept:"All-day Australian brunch concept with a Vietnamese-modern twist; a 'warm sanctuary' near Bến Thành Market.",
+  priv:"no",privtxt:"Not found",
+  anniv:"Casual — least occasion-oriented on the list",
+  sig:"All-day breakfast; 'Betweens' buns; cakes",
+  awards:"—",
+  addr:"70B Lê Lợi, D1", phone:"+84 829 995 777", hours:"Mon–Fri 08–21; wknd 08–22"},
+ {n:"Homido",c:"Korean BBQ",g:"Korean",price:"~400,000–800,000+",est:true,
+  concept:"Authentic Korean charcoal BBQ; Korean head chef 25+ yrs, 200+ dishes, house kimchi & daily banchan.",
+  priv:"yes",privtxt:"Private rooms ('maximum privacy')",
+  anniv:"Private rooms suit groups/celebrations",
+  sig:"Charcoal Wagyu & pork belly; Wagyu braised short rib; kimchi jjigae",
+  awards:"Google ~4.9/5 (1,100+)",
+  addr:"12 Lê Thánh Tôn, Bến Nghé Ward, D1", phone:"0815 233 266", hours:"Daily 11–15 & 17–23"},
+ {n:"Aiii House",c:"Contemporary Vietnamese",g:"Vietnamese",price:"2,790,000 ++ tasting",est:false,
+  concept:"Contemporary Vietnamese tasting by Chef Alain Phạm (French-trained); story-driven seasonal menus.",
+  priv:"yes",privtxt:"1F private room up to 8",
+  anniv:"Private dinners promoted; no explicit package",
+  sig:"Thematic seasons; jellyfish & grilled eggplant salads",
+  awards:"Tatler Best of Vietnam 2026; Best 20 2025",
+  addr:"27/6 Nguyễn Bỉnh Khiêm, Saigon Ward", phone:"0906 060 276", hours:"Tue–Sun 17:30–23; closed Mon"},
+ {n:"An's Saigon",c:"Modern Vietnamese",g:"Vietnamese",price:"~2,300,000–2,900,000 ++",est:true,
+  concept:"Progressive Vietnamese, local seasonal + modern technique; villa with garden café and a Chef's Table.",
+  priv:"yes",privtxt:"8-seat Chef's Table",
+  anniv:"Flagged Date Night — but strict no-photo, quiet-atmosphere policy",
+  sig:"Foie gras spring roll; black cod turmeric; wagyu bánh mì",
+  awards:"MICHELIN Selected 2025 (Guide 2023–26)",
+  addr:"5A Tống Hữu Định, Thảo Điền", phone:"+84 901 351 331", hours:"Tue–Sun; closed Mon"},
+ {n:"Home Saigon",c:"Pure Vietnamese",g:"Vietnamese",price:"~300,000–600,000+",est:true,
+  concept:"Upscale 'pure Vietnamese' in a restored 1970s Art Deco villa with balconies, terraces and water features.",
+  priv:"yes",privtxt:"Private rooms incl. one with a balcony",
+  anniv:"Private rooms promoted for special occasions",
+  sig:"Crab salad/vermicelli; char-grilled herbal duck; wok-fried lobster",
+  awards:"Flavors Awards 2024; TripAdvisor Travelers' Choice",
+  addr:"216/4 Điện Biên Phủ, D3", phone:"+84 857 275 999", hours:"11–22"},
+ {n:"Mam Mam Eatery & Lounge",c:"Regional Vietnamese",g:"Vietnamese",price:"~500,000–1,000,000",est:true,
+  concept:"Regional/modern Vietnamese 'back to origins', communal dining with a suspended 'mâm' centerpiece; veg-friendly.",
+  priv:"no",privtxt:"Lounge + bar + outdoor",
+  anniv:"Bar/lounge supports celebrations; no formal package",
+  sig:"Slow-cooked pork belly; Đắk Nông chicken; tilapia sashimi",
+  awards:"TripAdvisor Travelers' Choice 5.0/5",
+  addr:"Nexus Tower, 13 Nguyễn Siêu, D1", phone:"086 207 5500", hours:"Mon–Fri 08–22; wknd 16–22"},
+ {n:"Sen @ An Lam Retreat",c:"Southern Vietnamese",g:"Vietnamese",price:"~600,000–1,500,000+",est:true,
+  concept:"Southern Vietnamese riverside dining at a resort; shared round-table, heirloom recipes; Chef Hung.",
+  priv:"yes",privtxt:"Bespoke: poolside, star-lit deck, riverside",
+  anniv:"Romantic private dinners (deck/poolside), weddings",
+  sig:"Steamed/grilled snakehead; water-hyacinth sour soup",
+  awards:"— (luxury resort)",
+  addr:"An Lam Retreats, 21/4 Trung St, Bình Hòa", phone:"+84 274 378 5555", hours:"17–22 (LO 21)"},
+ {n:"Đông Dương",c:"Home-style Vietnamese",g:"Vietnamese",price:"~150,000–300,000",est:true,
+  concept:"Traditional home-style Vietnamese in Indochine décor; large (~400 seats), Northern family meals + street snacks.",
+  priv:"yes",privtxt:"2 rooms (8–12 & 15–25)",
+  anniv:"Suits gatherings/birthdays; pre-order deposit",
+  sig:"Bánh khọt hải sản; bánh tôm Hồ Tây; cá lóc quay me",
+  awards:"TripAdvisor ~3.9/5",
+  addr:"26 Trương Định, Xuân Hòa Ward", phone:"0913 515 351", hours:"Daily 10–22"},
+ {n:"Cela",c:"Vegetarian",g:"Vegetarian",price:"not published",est:true,
+  concept:"Modern vegetarian/vegan + natural-wine bar; Japanese-inspired plates from a rooftop garden and Đà Lạt farm.",
+  priv:"no",privtxt:"Not found",
+  anniv:"Wine-bar evenings suit couples",
+  sig:"Seasonal Japanese-inspired veg plates",
+  awards:"Sister to Tales (Michelin Green Star)",
+  addr:"10 Nguyễn Thành Ý, Tân Định Ward", phone:"094 908 0725", hours:"11–15 & 18–23; closed Tue"},
+ {n:"Đu Đủ Xanh",c:"Vegetarian",g:"Vegetarian",price:"~400,000–500,000",est:true,
+  concept:"MSG-free vegetarian/vegan; a 'Journey of the Senses' social enterprise staffed by deaf, blind & gender-diverse employees.",
+  priv:"no",privtxt:"Naturally intimate",
+  anniv:"Calm intimate space",
+  sig:"Combo nấm kho; Larb Chay; fruit hotpot (420k)",
+  awards:"~4.94 aggregator",
+  addr:"~178 Hai Bà Trưng, Đa Kao Ward, D1", phone:"0933 022 626", hours:"11–14 & 17–21:30"},
+];
+
+// ---- full detail dossier (keyed by name) ----
+const details = {
+ "Aiii House":{concept:"Contemporary Vietnamese tasting cuisine by Head Chef Alain Phạm (French-trained). The name evokes a Vietnamese street vendor's cry / the opening line of folk poetry. Seasonal, story-driven tasting menus released as numbered 'Seasons'.",
+  dishes:["Thematic seasons: 'La Vie en Nam', 'The Attic of Never Evers', 'Bềnh Bồng', current Tasting Menu S04","Reviewers cite jellyfish salad, grilled eggplant salad","Collaboration 'AiiixOre' set menu"],
+  awards:"Tatler Best of Vietnam 2026 (Best in Class & Spotlight); Tatler Best 20 Vietnam 2025. Featured in Travel+Leisure Asia, L'Officiel, Esquire. Not in the Michelin Guide.",
+  price:"✓ Tasting Menu S04 = 2,790,000 ++ (deposit 500,000/pax). AiiixOre set = 3,600,000 ++ (deposit 1,000,000/pax, one-off). Fixed tasting menus.",
+  priv:"✓ Ground-floor kitchen-view counter up to 12; 1st-floor main room 25–30; 1st-floor private room up to 8. No fee published.",
+  anniv:"Private dinners promoted on Instagram, bookable via TableCheck. No explicit cake/champagne/decoration package — confirm directly.",
+  flag:"", contact:"27/6 Nguyễn Bỉnh Khiêm, Saigon Ward · ☎ 0906 060 276 · eat@aiiihousesaigon.com · Book via TableCheck · Tue–Sun 17:30–23:00, closed Mon"},
+ "An's Saigon":{concept:"Progressive/contemporary Vietnamese — local seasonal ingredients + modern technique. Head Chef Cường Nguyễn (ex-sous chef at Ănăn under Peter Cường Franklin). A villa with garden café, indoor A/C restaurant, and a private Chef's Table room.",
+  dishes:["Foie gras spring roll; black cod turmeric; wagyu beef mini bánh mì; pigeon sticky rice","Burrata + Đà Lạt tomato (250k); mỳ Quảng tôm (375k); frog-leg croquette (40k/pc)","Chef's Menu currently '6.2 Sắc' (color-themed)"],
+  awards:"✓ MICHELIN Selected, Vietnam Guide 2025 (Michelin Plate 2024 & 2025); in 2023–2026 Michelin coverage.",
+  price:"Chef's Table deposit 1,000,000/pax. Set menus (2024, indicative): 'Đồng' 2,810,000 / 'Hồi' 2,345,000/pax incl. VAT. À la carte ~500k up to ~3,000,000. Current est. ~2,300,000–2,900,000 ++.",
+  priv:"✓ L-shaped 8-seat Chef's Table (dinner only, single seating ~7 PM). À la carte in Garden or Lounge.",
+  anniv:"Flagged 'Special Occasion' & 'Date Night' by TableCheck/Michelin.",
+  flag:"Strict no-photo / quiet-atmosphere policy. No explicit package.", contact:"5A Tống Hữu Định, An Khánh Ward, Thảo Điền · ☎ +84 901 351 331 · groups 8+ xinmoi@anssaigon.com · Tue–Sun, closed Mon"},
+ "Black Vinegar":{concept:"Modern/contemporary Cantonese. Chic dining hall + intimate drinks bar + a dedicated Crudo Bar (champagne & seafood) + private dining rooms. Chef Sam Liang (set lunch).",
+  dishes:["Poached boneless chicken w/ Sichuan sauce","Xiao long bao; handcrafted dim sum (historic Sunday all-you-can-eat dim sum)","Customizable set lunch — choose 6 of 21 dishes"],
+  awards:"✓ 'Favorite Restaurants' at the Flavors Awards 2024. Not Michelin.",
+  price:"✓ Set lunch 490,000 ++ for two (~245,000/pax; daily 11:30–15:00). Dinner à la carte/set est. ~800,000–1,500,000+/pax.",
+  priv:"✓ Multiple private dining rooms + the exclusive Crudo Bar. Capacity/fee not published.",
+  anniv:"Private rooms + Crudo Bar (champagne & seafood) suit celebrations. No formal cake/decoration package.",
+  flag:"", contact:"1F, New World Saigon Hotel, 76 Lê Lai, Bến Thành, D1 · ☎ 0914 391 171 · Daily 11:30–15:00 & 17:30–22:30"},
+ "Cela":{concept:"Modern vegetarian/vegan + natural-wine bar; Japanese-inspired vegetarian bites. Ingredients from a rooftop garden + own Đà Lạt farm; organic, no-waste ethos. Sister venue to Tales (MICHELIN Green Star). Tagline 'Eat Bright, Sip Light.'",
+  dishes:["Seasonal Japanese-inspired vegetarian small plates (not individually named in sources)"],
+  awards:"No standalone award; leverages Tales' MICHELIN Green Star pedigree.",
+  price:"Not published on any source — contact required. No reliable estimate.",
+  priv:"Not found in published sources.",
+  anniv:"Not found — no cake/champagne package. Wine-bar evening service suits couples.",
+  flag:"Newest material ~2025 (© 2024 footer). Verify still operating + pricing directly.", contact:"10 Nguyễn Thành Ý, Tân Định Ward · ☎ 094 908 0725 · Cela.reservation@talessgn.com · 11:00–15:00 & 18:00–23:00, closed Tue"},
+ "Dạ Dining (DẠ 夜)":{concept:"Modern Chinese 'shaped by Vietnamese terroir'; a cinematic/nocturnal theme ('A Nocturne in Chinese Flavour'), panoramic night views, Indochine design, and curated live performances (jazz dance, classical, drag). Head Chef Michael Luong.",
+  dishes:["The Duck — 14-day dry-aged truffle-roasted duck, 3 courses","The Eel Soup — freshwater eel + sea cucumber in chicken consommé","The Abalone — abalone + foie gras + oolong"],
+  awards:"✓ 'Highly Recommended Best Chinese Restaurant', Gourmet Vietnam Awards 2025. Not Michelin.",
+  price:"Not published (menus are sign-in-gated PDFs). Tier $$$$. Earlier note: VIP room hire ~25,000,000 (Mon–Thu) / 35,000,000 (Fri–Sun).",
+  priv:"✓ VIP private room (~16 guests) with 360° skyline; markets for dates/birthdays/anniversaries.",
+  anniv:"✓ Cinematic ambiance + night views + performances (Thu–Sat 19:30–21:00); VIP/birthday/event service advertised.",
+  flag:"", contact:"26th Fl, Centec Tower, 72–74 Nguyễn Thị Minh Khai, D3 · ☎ +84 96 943 4570 / 0797 739 959 · Evening/nocturnal · book via FB/IG/WhatsApp"},
+ "Đông Dương":{concept:"Traditional/home-style Vietnamese in Indochine-era décor. Preserves Northern family meals (mâm cơm Bắc Bộ) + street snacks. Large venue ~400 seats (Floor 1: 150, Floor 2: 250).",
+  dishes:["Bánh khọt hải sản; bánh tôm Hồ Tây (Hanoi shrimp fritters)","Cá lóc quay me; lẩu riêu cua; lẩu măng chua cá bông lau","Northern set meal; bánh xèo; bánh bèo; ốc bươu nhồi"],
+  awards:"None found. Not on Michelin. TripAdvisor ~3.9/5 (166 reviews).",
+  price:"~150,000–250,000/person (PasGo, ex-VAT); TopGo ~150,000–300,000. À la carte aggregator ranges.",
+  priv:"✓ 2 private rooms (one 8–12, one 15–25 guests). No stated room fee.",
+  anniv:"Suitable for family dining, gatherings, birthdays; pre-ordered dishes need a deposit. No explicit package.",
+  flag:"", contact:"26 Trương Định, Xuân Hòa Ward, D3 · ☎ 0913 515 351 / 088 835 2626 · PasGo 0931 006 005 · Daily 10:00–22:00"},
+ "Đu Đủ Xanh":{concept:"MSG-free, nature-sourced vegetarian/vegan. Part of the 'Journey of the Senses' social enterprise (staffed by deaf, blind, and gender-diverse employees; sister to Noir 'Dining in the Dark'). Praised for restraint — doesn't over-imitate meat.",
+  dishes:["Combo nấm kho (135k); Larb Chay (125k); Bí Ngòi Nhồi (125k)","Sichuan cold flat noodles (145k); winged-bean salad (135k)","Fruit hotpot lẩu trái cóc (420k); cassava mousse (95k)"],
+  awards:"No formal awards. High aggregator ratings (~4.94/169). Notable for its social mission.",
+  price:"~400,000–500,000/person incl. drinks & dessert (reviewer est.). Mains cluster 100k–215k; hotpot 420k.",
+  priv:"Not found.",
+  anniv:"Not found explicitly. Calm, refined, intimate space; no package.",
+  flag:"Address varies (178A vs 178B Hai Bà Trưng) — likely same complex.", contact:"~178 Hai Bà Trưng, Đa Kao Ward, D1 · ☎ 0933 022 626 (Zalo) / 028 3824 3877 · 11:00–14:00 & 17:00–21:30"},
+ "Homido":{concept:"Authentic Korean charcoal BBQ (Korean fusion). Korean head chef with 25+ years; 200+ Korean dishes. Premium meats over charcoal, Đà Lạt-sourced veg, house kimchi & ssamjang, daily banchan. Modern, sophisticated setting.",
+  dishes:["Charcoal-grilled Wagyu & pork belly (samgyeopsal)","Wagyu braised short rib (royal Korean recipe)","Kimchi jjigae; fresh-meat kimchi hotpot (for 3, 480k); naengmyeon; bulgogi"],
+  awards:"No formal awards. Google ~4.9/5 (1,100+); RestaurantGuru 4.9 (1,300+).",
+  price:"No published per-person figure. Kimchi hotpot for 3 = 480,000. Charcoal-Wagyu BBQ dinner est. ~400,000–800,000+/person.",
+  priv:"✓ Private rooms offering 'maximum privacy and comfort'.",
+  anniv:"Not found explicitly. Private rooms suit groups/celebrations; no cake/champagne package.",
+  flag:"", contact:"12 Lê Thánh Tôn, Bến Nghé Ward, D1 · ☎ 0815 233 266 · EN/KR supported · Daily 11:00–15:00 & 17:00–23:00"},
+ "Home Saigon":{concept:"Upscale 'pure Vietnamese' fine dining across all three regions + Mekong Delta, in a restored 1970s Art Deco French villa — dark earthy tones, navy hues, balconies, terraces, private enclaves, water features. ~120 seats.",
+  dishes:["Crab salad; crab w/ vermicelli; crab spring roll","Char-grilled herbal duck; wok-fried lobster; stir-fried crab","Char-grilled pork spare ribs; southern grilled beef; veal short-ribs"],
+  awards:"Flavors Awards 2024; TripAdvisor Travelers' Choice. Not confirmed on Michelin.",
+  price:"No official set price. Directory 50k–300k is unreliable for a full dinner; realistic est. ~300,000–600,000+/person.",
+  priv:"✓ Quiet, elegant private rooms including one WITH A BALCONY, plus terraces & outdoor enclaves.",
+  anniv:"✓ Private rooms promoted for 'celebrating special occasions' / 'exclusive atmosphere'; festive-feast promos on IG. No specific cake/champagne package.",
+  flag:"Address 216/4 (brand site) vs 252 Điện Biên Phủ (directories). Beware an unrelated 'Home Saigon' at 185/28 Phạm Ngũ Lão.", contact:"216/4 Điện Biên Phủ, D3 · ☎ +84 857 275 999 · homevietnameserestaurants.com · 11:00–22:00"},
+ "Li Bai":{concept:"Upscale Cantonese, open since 2003 (Head Chef Thi Giang since opening). Poet Li Bai theme — koi motifs, landscape art. Handcrafted dim sum with 60+ varieties. At the Sheraton Saigon.",
+  dishes:["10-day dry-aged Peking duck (widely praised as best in HCMC)","Superior abalone & prawn dumplings; Hokkaido scallop siew mai","Black-pepper Wagyu beef buns in claypot; 'Buddha Jumps Over the Wall'"],
+  awards:"2024 Best Innovation Restaurant (Luxuo Asia); TripAdvisor Travellers' Choice 2024 & 2025. Not Michelin.",
+  price:"✓ 8-course 'Dạ Tiệc 8 Món' w/ Peking Duck = 1,490,000 NETT/person (min 2). À la carte dinner est. ~700,000–1,500,000+/person.",
+  priv:"✓ 2 VIP rooms (12–20 each, combinable ~35) + semi-private corners.",
+  anniv:"Private rooms + seasonal/festive menus; as a 5-star hotel outlet, cake/champagne/decoration can be arranged on request.",
+  flag:"", contact:"Level 2, Sheraton Saigon, 88 Đồng Khởi, D1 · ☎ +84 28 3521 9148 · Mon–Sat 11:00–14:30 & 18:00–22:00; Sun from 10:00"},
+ "Mãn by UnicB":{concept:"Contemporary fine-dining Chinese specializing in Jiangnan cuisine — Zhejiang, Suzhou, Hangzhou traditions reimagined with modern technique + Vietnamese influence. 'Mãn' = fulfillment/completeness. Successor to Hanoi's UnicB.",
+  dishes:["Yang Guifei Shrimp Ball — beetroot dough, hand-pounded shrimp/squid/lychee, hidden macadamia crunch","New-style Peking Duck — dry-aged w/ 24 herbs, tea-oil roasted, served two ways"],
+  awards:"'Tatler nominated' could NOT be verified — not on Tatler Best 20 Vietnam 2025. TripAdvisor 5.0/5 but very few reviews.",
+  price:"Not found. RW2025 promo 3-course was 350,000; regular dinner est. ~600,000–1,200,000/person.",
+  priv:"Not found explicitly ('private corners' seating only).",
+  anniv:"Not found.",
+  flag:"Couldn't retrieve a dated post under 12 months; venue appears open, recency uncertain.", contact:"25B Tú Xương, Võ Thị Sáu Ward, D3 · ☎ 035 486 6979 · Daily 11:00–14:30 & 17:00–22:30"},
+ "Matsuri":{concept:"Japanese — the name means 'festival'. Traditional Washoku + Yoshoku (Japanese-style reinvented Western). A 'Modern Izakaya' with ~300 dishes: sashimi, sushi, yaki, itame, tempura, nabe. Multi-branch.",
+  dishes:["Breadth is the selling point — no single hero dish","Veg best-sellers: Liên Hoa sushi rolls, tofu stir-fried w/ mushrooms","Char-siu ramen"],
+  awards:"None found (no Michelin/Tatler).",
+  price:"✓ Set Lunch Bento (Landmark 81) from 138,000+. Dinner à la carte est. ~400,000–800,000/person. 15% off food when booking via website.",
+  priv:"✓ Private room up to 12 (no room fee) — confirm at branch.",
+  anniv:"No formal package. The Nguyễn Huệ branch markets a Bạch Đằng river/fireworks view for dates.",
+  flag:"", contact:"Nguyễn Huệ (0968 708 812); Vincom Thảo Điền; Landmark 81 (0938 761 969) · Daily 11:00–22:00 (LO 21:45)"},
+ "Nikura":{concept:"Nikkei — authentic Japanese-Peruvian, HCMC's first dedicated Nikkei. A 'cross-cultural dialogue' of Peru × Japan by Chef Ivan Casusol (Lima-born). Sister cocktail bar Pisco Hana shares the location.",
+  dishes:["Tiradito Concha — sashimi technique + Peruvian chilies","Concha — scallop sautéed in creamy lime sauce; A8 Wagyu Steak","Nikura Rice — jamón broth, shiitake, poached egg, nut sauce"],
+  awards:"Not found (very new; no Michelin/Tatler yet).",
+  price:"Dinner not published. Lunch set 580,000 ++. No reliable dinner estimate.",
+  priv:"✓ Seats ~100 with 2 private dining rooms + garden terrace; chef's table for 8–10. Pisco Hana has 1 private room (46 seats).",
+  anniv:"Not a named package. Private rooms + garden terrace + adjacent cocktail bar/music support celebrations.",
+  flag:"", contact:"G Fl, JW Marriott, cnr Hai Bà Trưng & Lê Duẩn, D1 · ☎ +84 914 296 754 · nikura.saigon@marriott.com · Lunch 11:30–14:30; Dinner 18:00–22:00"},
+ "Rokusho Saigon":{concept:"Upscale-yet-relaxed Japanese izakaya + mixology bar — 'Tokyo's culinary art in Vietnam'. Dark, moody interior (indigo floating fabrics, concrete) with an open kitchen evoking a Tokyo back-alley. Delivered 2024.",
+  dishes:["Skewers/yakitori; sashimi & sushi","Cá ngừ Yukke (tuna yukhoe); udon","Creative modern small plates; notable sake selection"],
+  awards:"TripAdvisor Travelers' Choice 5.0/5 (~30). NOT in the Michelin Guide — the 'Michelin-starred founders' claim could not be verified.",
+  price:"Items from ~80,000; '$$–$$$'. No fixed set/tasting. Full izakaya dinner + drinks est. ~500,000–900,000/person.",
+  priv:"Not found (single ~22.5m-wide space, bar + table seating).",
+  anniv:"Not found in any official/review source.",
+  flag:"", contact:"02 Thi Sách (Bình Minh Building), Bến Nghé Ward, D1 · ☎ 078 388 8802 · om@rokusho.vn · Daily 17:00–01:00"},
+ "Towa":{concept:"Japanese fine dining + omakase sushi bar + Ginza-style cocktail lounge on the 28th floor, with panoramic views and an outdoor 360° terrace. Name = 'eternal life'. Also serves a Cantonese menu ('Lai'). Seafood from Toyosu, Hokkaido, Nagasaki; bluefin tuna from Kochi.",
+  dishes:["Omakase (chef's selection)","Salmon & tuna-belly sashimi; assorted sushi","Fusion tapas; Japanese-imported seafood focus"],
+  awards:"Not in Michelin. TripAdvisor 4.8/5 (616), #27 of 8,016 HCMC. Luxe Global Award 2022; VMARK Vietnam Design Gold.",
+  price:"Not published in VND officially. Omakase ~US$100 (≈2,500,000). Dinner est. ~1,500,000–2,800,000/person.",
+  priv:"✓ FOUR decorated private dining areas (incl. a tatami room, shoes off) + a special 2-guest private setup for romantic proposals.",
+  anniv:"✓ 'Romantic Spark' anniversary set menu + couple menu; 28F view / outdoor patio; reviewers noted complimentary dessert & taking wine home. Event setup, AV, live performances.",
+  flag:"Official site footer '© 2018' (undated) — freshest verified info is 2026 TripAdvisor.", contact:"Level 28, Sedona Suites, 92–94 Nam Kỳ Khởi Nghĩa, D1 · ☎/Zalo/WhatsApp 090 316 1038 · lt.reservation@elements.vn · Daily 11:30–22:30"},
+ "Yen Sushi & Sake Pub":{concept:"Japanese-fusion izakaya/pub — Japanese + global flavors, a modern space with chillout music; lightly charcoal-grilled dishes retaining 'natural sweetness', Japan-imported ingredients. Vietnam's first Japanese-fusion chain.",
+  dishes:["Fresh sashimi (headline); Yen Deluxe Sashimi platter (788k)","Unagi roll; salmon poke on avocado; seafood salad","Tempura; gunkan sushi; Maguro Kaitai (tuna-cutting) show"],
+  awards:"Not found. TripAdvisor ratings vary by branch (4.3–5.0).",
+  price:"Yen Deluxe Sashimi 788,000. Range '$$–$$$' (Thảo Điền '$$$$'). Dinner est. ~400,000–900,000/person.",
+  priv:"Partial — tatami rooms ('quite a few'). A 'Party Service' page exists. No formal capacity/fee.",
+  anniv:"Party Service offered (details unpublished); no specific package.",
+  flag:"", contact:"55 Xuân Thủy (Thảo Điền); 2B Lê Duẩn; 68 Lê Lợi + more · ☎ 1900 066 890 · Daily 10:30–14:00 & 17:00–22:00"},
+ "Yen Sushi Premium":{concept:"'The Leading Authentic Omakase Japanese Restaurant in HCMC.' Kaiseki & Omakase in a traditional Japanese Ryotei villa — a garden of ancient cedar trees, an old wooden gate, a century-old banyan. Ingredients direct from Toyosu, Tokyo. Head chef Hirohito Sato (31+ yrs).",
+  dishes:["Madai (sea bream), Anago (eel), Amaebi & Sakura pink shrimp","Premium: Zuwai snow crab, Hitachi A5 wagyu, caviar, truffle salt","Seasonal sets ('Mutuki', 'Semishigure', 'Sakura'); Tsukinoi sake"],
+  awards:"None found (no Michelin/Tatler).",
+  price:"✓ Sets (2025): 'Mutuki' 2,200,000 ++/pax; 'Semishigure' (summer) 1,698,000 ++. Full omakase + drinks est. ~2,000,000–3,000,000+/person.",
+  priv:"✓ VIP rooms up to 30; various VIP room options.",
+  anniv:"✓ VIP rooms marketed for 'intimate family gatherings, anniversaries, or business meetings'. Omakase order 6–24h ahead. No cake/champagne itemized.",
+  flag:"", contact:"123 Bà Huyện Thanh Quan, D3; 49 Trần Ngọc Diện, Thảo Điền · ☎ 1900 066 890 · yensushipremium.vn/reservations · Daily 10:30–14:00 & 17:00–22:00"},
+ "5 Senses":{concept:"Modern Japanese fusion ('Art of Fusion') designed to engage all five senses; blends traditional Japanese artistry with contemporary luxury — each dish 'a work of art'. Casual-elegant with a smart dress code, on the ground floor of Hotel Nikko.",
+  dishes:["Wakame seaweed salad (sea grape, radish, ponzu)","White miso soup; Black Angus tenderloin w/ porcini sauce","Panna cotta w/ strawberry or mango"],
+  awards:"None confirmed ('Michelin-star quality' is reviewer opinion). Visa guide lists Luxury Hotel Restaurant 2023; Best Head Chef SE Asia 2023.",
+  price:"No reliable published figure. Aggregator band ~440,000–5,400,000 (very wide) — reference only.",
+  priv:"Not found online.",
+  anniv:"Not found online.",
+  flag:"Hotel Nikko's own dining page omits it — appears to be an independent tenant. Verify it's still operating.", contact:"G Fl, Hotel Nikko Saigon, 235 Nguyễn Văn Cừ, D1 · ☎ +84 28 6688 7888 · 5senses.asia · Daily 15:00–23:00"},
+ "ROS – Yacht Club":{concept:"Contemporary/modern Asian, riverside — 'where tradition intersects with modernity' by Chef Vĩnh. Day-to-night: dining + river lounge + cocktails/mixology + live entertainment, on the Saigon River waterfront at Bạch Đằng Harbour. Established 2019.",
+  dishes:["Menu published as images only — dish names not extractable","À La Carte, Lunch, Set Menu, High Tea, Drinks, Cocktails","Set Menu requires pre-order 1–2 days ahead"],
+  awards:"Best Asian Restaurant 2023 (Dubai, per Visa guide). No Michelin/Tatler located.",
+  price:"Not published as text (image-only menu). No reliable estimate.",
+  priv:"Not found in text. Gallery shows weddings & brand events (Dior) — event capability implied. Riverfront tables are the signature.",
+  anniv:"✓ Event hosting confirmed (weddings, brand celebrations) + riverfront tables + river lounge = strong romantic fit. No documented package.",
+  flag:"", contact:"Bạch Đằng Harbour, 10B Tôn Đức Thắng, D1 · ☎/Zalo +84 903 796 236 · ros.reservation@tangroup.vn · Lunch 11:00–14:00; Dinner 17:00–22:30"},
+ "Shamoji Robata Yaki":{concept:"Japanese robatayaki / warayaki (charcoal & straw-fire grill) izakaya recreating fishing-village culture — wabi-sabi aesthetic, mismatched cups, a low sliding tea-room door, open kitchen. Food served on wooden 'shamoji' paddles. Toyosu-market ingredients air-flown weekly.",
+  dishes:["Warayaki straw-fire grilled tuna steak (seared outside, raw inside, ponzu + basil — a performance)","Hamayaki saba (salted mackerel skewer)","Warayaki 'Yaki Goat Thigh' from 400,000/thigh"],
+  awards:"Not found.",
+  price:"Not officially published per-head. Goat thigh from 400,000. Est. ~400,000–800,000/person (grill + drinks).",
+  priv:"Not found on official/review sources.",
+  anniv:"Not found. Runs a Maguro Kaitai (tuna-cutting) show + warayaki performances; no anniversary package.",
+  flag:"", contact:"5 branches: Lê Thị Riêng; Xuân Thủy; Nguyễn Đức Cảnh; Lê Lợi; Alexandre de Rhodes · ☎ 1900 066 890 · Daily 10:30–14:00 & 17:00–02:00"},
+ "Basilico":{concept:"Authentic Italian — a casual 'trattoria' spirit + contemporary creativity + Vietnamese hospitality. Handcrafted pasta, wood-oven pizzas, à la carte. New 2026 menu by Italian Chef Francesco Leone (20+ yrs). At the JW Marriott.",
+  dishes:["From the 2026 menu: Tajima Wagyu steak, Imperial caviar, fresh handmade pasta","Arancini (275k); Insalata Basilico (335k)","Amatriciana pizza (370k); Affogato (175k)"],
+  awards:"None found (Visa guide lists Gourmet Vietnam Best Italian 2025).",
+  price:"À la carte est. ~600,000–1,200,000/person. Marriott Bonvoy: 3-course 790,000 net / 4-course 1,490,000 net (to 30 Sep 2026). Valentine's 2026 5-course 3,000,000 ++/2 incl. wine.",
+  priv:"Not found as a Basilico-specific feature (JW Marriott has separate event venues).",
+  anniv:"✓ Ran a Valentine's 2026 romantic 5-course set for 2 → does celebration/couple set menus. No standing package.",
+  flag:"", contact:"JW Marriott, cnr Nguyễn Du & Lê Văn Hưu, D1 · ☎ +84 28 3520 9999 · Daily 06:30–22:00"},
+ "Godmother":{concept:"All-day dining, an Australian brunch concept — 'classic Aussie brunch plates to local Vietnamese flavors with a modern twist'; healthy, hearty dishes, coffee, cakes. Name = 'mẹ đỡ đầu' (godmother), a warm sanctuary near Bến Thành Market.",
+  dishes:["All-day breakfast/brunch (eggs, pancakes, smoothie bowls)","'Betweens' buns; salads; mains","Cakes/bakes; Vietnamese dishes with a modern twist"],
+  awards:"None found.",
+  price:"No exact prices published ('>100k'). Est. ~150,000–350,000/person (brunch + coffee).",
+  priv:"Not found.",
+  anniv:"Not found as a formal package. Cakes/bakes sold; catering offered. Least occasion-oriented on the list.",
+  flag:"", contact:"70B Lê Lợi, D1 (near Bến Thành Market) · ☎ +84 829 995 777 · marketing@godmother.vn · Mon–Fri 08:00–21:00; wknd 08:00–22:00"},
+ "JW Café":{concept:"All-day international buffet, recently repositioned as a premium seafood restaurant ('fresh ocean selections') with international live cooking stations + à la carte. At the JW Marriott.",
+  dishes:["Premium seafood spread","International live-cooking stations","Specific dishes not itemized"],
+  awards:"None found.",
+  price:"✓ Buffet (2026): Breakfast 690,000 ++; Lunch promo (Mon–Fri) 790,000 net; Dinner up to 1,700,000 ++ (Fri–Sun); Sun–Wed dinner promo 1,490,000 net.",
+  priv:"Not found as JW-Café specific (hotel has separate event spaces).",
+  anniv:"Not a dedicated package. Promotional buffets (30% off via Club Marriott).",
+  flag:"Location 'Hai Bà Trưng & Lê Duẩn' could not be confirmed — official sources place it at Nguyễn Du & Lê Văn Hưu. Verify entrance.", contact:"JW Marriott, cnr Nguyễn Du & Lê Văn Hưu, D1 · ☎ +84 28 3520 9999 · jwcafe.vn · All-day"},
+ "Prime Steak Boutique & Chill":{concept:"HCMC's first boutique steakhouse specializing in dry-aged beef. Exec Chef Khai Vu (25+ yrs in Las Vegas steakhouses). The dry-aging cabinet holds ~1 ton. ~900m² across 3 floors + a rooftop bar.",
+  dishes:["Dry-aged beef aged at 45, 65 and 100 days","Black Angus NY 300g (1,100,000); Ribeye 300g (1,300,000); 45-day dry-aged ribeye 650,000/100g","French foie gras, phở, seafood, pasta; house sauces (Garlic Special, Ambarella Chimichurri)"],
+  awards:"Best Steakhouse — Gourmet Vietnam Award 2025. TripAdvisor 4.9/5 (122). Not Michelin.",
+  price:"À la carte only (+10% VAT +5% svc). Per-person reference ~2,500,000. Dry-aged steak dinner + wine est. ~2,000,000–3,500,000+/person.",
+  priv:"✓ VIP private room up to 15, WITH ITS OWN DEDICATED COOKING STATION. Full capacity 250 — Floor 1 (40, cozy), Floor 2 (80, elegant), Floor 3 cocktail bar (80–100). No published room fee.",
+  anniv:"✓ 'Catering by PRIME' / Exclusive VIP Catering — custom chef-designed menus for anniversaries; wine-steak pairing; 540-bottle wine list; warm candle-lit ambiance. Cake/champagne not explicitly confirmed — confirm at ☎ 0868 060 166.",
+  flag:"", contact:"138–142 Pasteur, Bến Nghé Ward, D1 · ☎ 0868 060 166 / 0913 51 53 51 · booking@primesteakboutique.com · EN/VI/中文/日本語/한국어 · Mon–Fri 11–14 & 17:30–23:30; wknd 17:30–23:30"},
+ "Stoker Woodfired Grill & Bar":{concept:"Wood-fired grill / European–American steakhouse 'inspired by cooking with wood-fueled fire over hot coals'. Four separate fire-cooking sections + a dry-aging room. The 3-floor D1 venue has an open-kitchen counter and an upstairs DRAM Bar (cocktails, pool, cigars).",
+  dishes:["Grilled Wagyu beef ribs w/ BBQ sauce; pan-seared French foie gras","Norwegian smoked-grilled salmon; grilled tuna; crispy duck breast","Braised lamb ribs; beef tartare; grilled octopus; fresh French oysters"],
+  awards:"✓ MICHELIN Guide Selected 2023, 2024, 2025 (three years). World Luxury Restaurant Awards 2025 — Regional Winner (Thảo Điền).",
+  price:"~500,000–1,000,000/person (PasGo); more w/ premium cuts/wine. Oysters 330k; beef tartare 250k; 3-course set lunch ~300k.",
+  priv:"D1 (Mạc Thị Bưởi): NO private room (cap ~80; event decoration also unavailable). Thảo Điền: whole-venue event hire (100+ standing / 60+ seated).",
+  anniv:"✓ Complimentary cake for special occasions confirmed (Thảo Điền); 'best for anniversary dinner, date night'. No champagne/set romantic menu confirmed; D1 has no event decoration.",
+  flag:"", contact:"44 Mạc Thị Bưởi, D1 (☎ +84 868 953 102); 2 Đặng Hữu Phổ, Thảo Điền (☎ 0909 192 725) · D1 Mon–Fri 11:30–24:00; wknd 16:00–24:00"},
+ "The Albion by Kirk Westaway":{concept:"Modern European fine dining rooted in British heritage — 'Reinventing British'. A rooftop restaurant + British-style bar with 1930s-inspired elegance and panoramic city views, on the 23rd floor of Hôtel des Arts. Guided by 2-Michelin-star chef Kirk Westaway (JAAN, Singapore) with head chef Christopher Clarke.",
+  dishes:["The Albion Tomato — organic Đà Lạt tomatoes, housemade ketchup, basil-orange sorbet","Refined Eton Mess","Wagyu w/ stout gravy; sea bream w/ smoky grilled green mussels; langoustine"],
+  awards:"✓ MICHELIN Selected 2025; Tatler Best 100 Asia-Pacific 2025; Tatler Restaurant of the Year 2025; Tatler Best 20 Vietnam 2026.",
+  price:"✓ 6-course Tasting Menu 1,850,000 ++ (excl. drinks); wine pairing extra (Visa guide cited 1,999,000 ++ / 3,599,000 ++ w/ wine — reconfirm). Accor Plus: 30% off dining.",
+  priv:"No dedicated private room (Dining Room ~60). Markets 'Private Dining | The Art of Celebrations' for buy-outs. For couples, request a window-side table for night views.",
+  anniv:"✓ Bespoke anniversary package promoted — 'every detail carefully composed to honour love, memory, and togetherness'. Window-side tables for panoramic night views. Sunday Brunch offered.",
+  flag:"", contact:"23rd Fl, Hôtel des Arts Saigon (MGallery), 76–78 Nguyễn Thị Minh Khai, D3 · ☎ 0901 379 129 · tuong.cat@accor.com · Daily 17:30–23:30 (LO 21:30); Sun Brunch 12:00–16:00 · non-smoking"},
+ "The Palm Restaurant & Bar":{concept:"Rooftop French-Mediterranean dining bar — 'a tranquil oasis in the heart of Saigon' with a poolside setting, sweeping city + Turtle Lake (Hồ Con Rùa) views, natural materials and greenery. On the 10th floor of Bạch Suites. Chef Sakal Phoeung (French-trained).",
+  dishes:["Beef Wellington; tuna tataki w/ ponzu","Duck confit & dry-aged/smoked duck breast (tableside)","Baked oysters; beetroot tartare w/ burrata; chocolate & coconut mousse"],
+  awards:"None found. TripAdvisor 5.0/5 (~57). A new venue (~2024–2025).",
+  price:"No published VND figure ('$$$$'). Est. ~700,000–1,500,000+/person (boutique-hotel French-Med tier).",
+  priv:"Not found. Rooftop restaurant/bar with pool ('offers privacy' ambiance — confirm directly).",
+  anniv:"Not explicitly documented; romantic rooftop / Turtle Lake sunset-and-starlit ambiance. No specific package found.",
+  flag:"", contact:"10th Fl, Bạch Suites Saigon, 10A Phạm Ngọc Thạch, D3 (above Turtle Lake) · ☎ 028 3891 9999 / +84 90 975 3456 · Dinner 16:00–23:00"},
+ "ICON Cruise Saigon":{concept:"A luxury dinner cruise on the Saigon River (Tân Group). Fine dining blending Asian & European (a contemporary Cantonese 'Set Menu Signature'). Live band (Fri & Sat), traditional Vietnamese performances, a magic show (Sun), and fireworks Fri/Sat/Sun. An outdoor 'ICON Skydeck' event space (up to 150).",
+  dishes:["Fixed multi-course 'Set Menu Signature' (contemporary Cantonese/international)","Menus: Sunset Menu, Dinner Set Menu, Beverage Menu","Specific dishes unpublished"],
+  awards:"None found. Marketed as 'a new symbol of luxury' (opened ~2024–2025).",
+  price:"✓ Per ticket (official): Sunset Tour (17:00–18:00) from 438,000 ++/guest; Set Menu Dinner (board 18:00–19:30, to ~21:00) from 1,550,000 ++/guest.",
+  priv:"✓ Booking offers 'Private Room' & 'Private Event'; VIP Rooms with personalized décor; Skydeck holds up to 150. Room capacities/fees not published — inquire via hotline.",
+  anniv:"✓✓ MOST COMPLETE — a dedicated 'Birthday–Anniversary Party' page with bespoke packages: custom menus, celebratory cakes, floral arrangements, dedicated seating, VIP private rooms, and live entertainment.",
+  flag:"", contact:"Pier 05 Nguyễn Tất Thành, Xóm Chiếu Ward, D4 · ☎ 076 364 9988 · icon.reservation@tangroup.vn · iconsaigon.com/vi/dat-ve · Dinner boards 18:00, sails ~19:30, returns ~21:00"},
+ "Oculus":{concept:"A cocktail bar + multi-sensory dining room. The space is designed like an eye — a glass-front lookout ('cornea'), a sliding door ('pupil'), and a central circular bar ('lens'). Bartender Phạm Hồng Toàn specializes in 'forgotten cocktails' / 'Classics In Disguise'; kitchen by Chef Anh Khoa. Cocktail-and-food pairing is the signature.",
+  dishes:["Signature pairing — 'The Steady Look' cocktail (gin, dill sake, tomato consommé) w/ Chutoro (tuna belly)","Caviar-loaded daikon; uni toast","Waffles with butter"],
+  awards:"'Tatler Top 100 Bars' NOT verified — appears incorrect (absent from Tatler Best Bars Vietnam 2025 & Asia-Pacific 2025). Has a Tatler profile page but no ranking.",
+  price:"Not published. Craft cocktails likely ~250,000–400,000 each (estimate); no set-menu price located.",
+  priv:"Not found. The layout centers on a circular bar; no private room advertised.",
+  anniv:"Not found. Positioned as an intimate/exclusive cocktail bar rather than a celebration venue.",
+  flag:"Hours were recently revised (sources differ) — reconfirm. Very young venue.", contact:"54 Võ Văn Tần, D3 · ☎ +84 928 993 993 · IG @o.culus_saigon · Tue–Thu 19:00–01:00; Fri–Sun to 02:00; closed Mon"},
+ "Mam Mam Eatery & Lounge":{concept:"Regional/modern Vietnamese that 'returns to origins' with regionally sourced ingredients and a communal-dining feel. The interior signature is a large inverted 'mâm' (round tray) suspended 'like a UFO'. Veg/vegan friendly; fine dining. Behind Le Méridien.",
+  dishes:["Slow-cooked melt-in-mouth pork belly; Đắk Nông chicken w/ bamboo-tube rice","Tilapia sashimi; dry-aged duck w/ shrimp crackers","Mekong Delta fish salad; An Giang thốt nốt (Palmyra) cake"],
+  awards:"TripAdvisor Travelers' Choice; 5.0/5 (~28 reviews); ~#308/8,016 HCMC. No Michelin/Tatler.",
+  price:"Not published ('$$$$'). Est. ~500,000–1,000,000/person (inferred from fine-dining positioning).",
+  priv:"Not found — has a Lounge, full bar and outdoor seating, but no documented private room.",
+  anniv:"Not a formal package. IG promoted a special menu of Vietnamese classics + Mam Mam originals; bar + lounge + outdoor support celebrations.",
+  flag:"", contact:"Ground Fl, The Nexus Tower, 13 Nguyễn Siêu, D1 (behind Le Méridien) · ☎ 086 207 5500 · book via DiningCity · Mon–Fri 08:00–22:00; wknd 16:00–22:00"},
+ "Sen @ An Lam Retreat":{concept:"Southern Vietnamese riverside fine-casual dining, launched mid-2025 as part of the 'Sen & Riva' relaunch at An Lam Retreats Saigon River. Heritage/nostalgia with shared round-table meals, natural/local ingredients and traditional techniques. Chef Hung (10+ yrs Southern Vietnamese).",
+  dishes:["Steamed snakehead fish w/ pork belly (Châu Đốc style)","Grilled snakehead w/ sugarcane; sour soup w/ water-hyacinth flowers","Ginger glutinous-rice balls; Mekong Delta freshwater fish, house-fermented fish sauce"],
+  awards:"Not found — no Michelin/major award. An Lam is a luxury resort/wedding venue.",
+  price:"Not published. Est. resort fine-dining tier ~600,000–1,500,000+/person for dinner.",
+  priv:"✓ Bespoke — private/intimate dining in scenic spots: a poolside table, a romantic star-lit dinner on the deck, riverside tables. No fixed capacity/fee.",
+  anniv:"✓ Romantic private dinners (star-lit deck, poolside), weddings & events explicitly offered; riverside marketed for celebrations. Cake/champagne not itemized online.",
+  flag:"", contact:"An Lam Retreats, 21/4 Trung St, Bình Hòa Ward · ☎ +84 274 378 5555 · rsvn.sr@anlam.com · Sen Vietnam Restaurant 17:00–22:00 (LO 21:00)"},
+};
+
+// ---- reference links (keyed by name) ----
+const links = {
+ "Aiii House":[["Official site","https://aiiihousesaigon.com"],["Menu","https://aiiihousesaigon.com/menu"],["TableCheck (pricing/booking)","https://www.tablecheck.com/en/aiii-housesaigon/reserve/experiences"],["Instagram","https://www.instagram.com/aiiihousesaigon"],["Facebook","https://www.facebook.com/aiiihousesaigon"],["Tatler","https://www.tatlerasia.com/dining/aiii"],["Chef Alain Phạm","https://www.iamalainpham.com/aiii-house-saigon"]],
+ "An's Saigon":[["Official site","https://www.anssaigon.com"],["Chef's Menu","https://www.anssaigon.com/chefs-menu"],["Menus","https://www.anssaigon.com/menus"],["TableCheck (booking)","https://www.tablecheck.com/en/an-saigon/reserve/experiences"],["Michelin Guide","https://guide.michelin.com/vn/en/ho-chi-minh/ho-chi-minh_2978179/restaurant/an-s-saigon"],["Ẩm Thực Hiện Đại","https://amthuchiendai.vn/ans-saigon-am-thuc-viet-duong-dai-sang-tao"],["Facebook","https://www.facebook.com/ans.saigon"],["En Primeur Club","https://enprimeurclub.com/restaurants/ans-saigon-ho-chi-minh-city-restaurant"]],
+ "Black Vinegar":[["New World Saigon – Black Vinegar","https://saigon.newworldhotels.com/en/dining/black-vinegar"],["Set lunch menu","https://saigon.newworldhotels.com/en/promotions/promotions-dining/set-lunch-menu-black-vinegar"],["Pinguide","https://pinguide.city/district-1/places/black-vinegar"],["Epicure Asia","https://www.epicureasia.com/dining/15315"],["Facebook","https://www.facebook.com/NewWorld.BlackVinegar"]],
+ "Cela":[["Cela (Tales SGN)","https://talessgn.com/cela"],["Reservation","https://talessgn.com/cela-reservation"],["Instagram","https://www.instagram.com/cela.saigon"],["Facebook","https://www.facebook.com/Cela.saigon"],["DiningCity","https://www.diningcity.vn/hochiminhcity/CELA_Restaurant"]],
+ "Dạ Dining (DẠ 夜)":[["Epicure Vietnam (Feb 2026)","https://epicurevietnam.com/dining/saigon/da-dining-a-nocturne-in-chinese-flavour"],["Linktree (menus)","https://linktr.ee/dadining"],["Instagram","https://www.instagram.com/diningatda"],["Facebook","https://www.facebook.com/dadining.sgn"]],
+ "Đông Dương":[["Facebook","https://www.facebook.com/dongduongsgn"],["PasGo","https://pasgo.vn/nha-hang/dong-duong---truong-dinh-5718"],["TopGo","https://topgo.vn/ho-chi-minh/nha-hang-dong-duong"],["TripAdvisor","https://www.tripadvisor.com/Restaurant_Review-g293925-d1197746"]],
+ "Đu Đủ Xanh":[["Journey of the Senses","https://journeyofthesenses.vn/du-du-xanh"],["Facebook","https://www.facebook.com/duduxanhvegetarian"],["Dulichdau (Jun 2025)","https://en.dulichdau.com/2025/06/u-u-xanh-refreshing-vegetarian-escape.html"],["TripAdvisor","https://www.tripadvisor.com/Restaurant_Review-g293925-d23170457"]],
+ "Homido":[["Gurutto","https://en.gurutto-vietnam.com/detail/6729"],["Facebook","https://www.facebook.com/homidokoreafood"],["Instagram","https://www.instagram.com/homido.koreanfood"],["RestaurantGuru","https://restaurantguru.com/Homido-Korean-Food-Ho-Chi-Minh-City"]],
+ "Home Saigon":[["Concept – Home Sài Gòn","https://homevietnameserestaurants.com/concept/home-sai-gon"],["Culinary adventure","https://homevietnameserestaurants.com/home-saigon-a-vietnamese-culinary-adventure"],["Facebook","https://www.facebook.com/homesaigon.homevietnameserestaurant"],["SaigonShops","https://saigonshops.com/places/320/home-finest-saigon-restaurant"],["Foody","https://www.foody.vn/ho-chi-minh/home-finest-vietnamese-restaurant"]],
+ "Li Bai":[["Official site","https://www.libaisaigon.com"],["Tatler","https://www.tatlerasia.com/dining/li-bai-vn-en"],["Vietcetera","https://vietcetera.com/en/sticking-to-the-classics-li-bai-restaurant-offers-unchanging-cantonese-culinary-mastery"],["TripAdvisor","https://www.tripadvisor.com/Restaurant_Review-g293925-d1812864"],["Sheraton/Marriott dining","https://www.marriott.com/en-us/hotels/sgnsi-sheraton-saigon-grand-opera-hotel/dining"],["Facebook","https://www.facebook.com/LiBaiBySheratonSaigon"]],
+ "Mãn by UnicB":[["DiningCity","https://www.diningcity.vn/en/pages/man_by_unicb"],["Facebook","https://www.facebook.com/manbyunicb1"],["TripAdvisor","https://www.tripadvisor.com/Restaurant_Review-g293925-d31708795"],["Tatler Best 20 Vietnam 2025 (Mãn not listed)","https://www.tatlerasia.com/dining/food/tatler-best-20-restaurants-vietnam-2025"]],
+ "Matsuri":[["Official site","https://matsurirestaurant.com.vn/en"],["Facebook (Landmark 81)","https://www.facebook.com/matsuri.restaurant.landmark81"],["Facebook","https://www.facebook.com/matsuri.restaurant.vn"]],
+ "Mam Mam Eatery & Lounge":[["Facebook","https://www.facebook.com/eat.atmammam"],["TripAdvisor","https://www.tripadvisor.com/Restaurant_Review-g293925-d32977213"],["DiningCity","https://www.diningcity.vn/hochiminhcity/Mam_Mam_Eatery_Lounge"]],
+ "Nikura":[["Vietcetera (~May 2025)","https://vietcetera.com/en/jw-marriott-hotel-suites-saigon-debuts-nikura-pisco-hana-two-experiences-one-nikkei-journey"],["Vietnam-Gift (May 2026)","https://vietnam-gift.com/news/nikura-nikkei-saigon"],["Club Marriott","https://www.myclubmarriott.com/hotel/restaurantdetail/en/nikura"],["Facebook","https://www.facebook.com/NikuraRestaurant"]],
+ "Rokusho Saigon":[["TripAdvisor","https://www.tripadvisor.com/Restaurant_Review-g293925-d33012518"],["Linktree","https://linktr.ee/rokusho.vn"],["ador.vn menu","https://www.ador.vn/menu-rokusho-saigon"],["Connecty","https://connecty.com.vn/rokusho-saigon"],["Nightlife Vietnam","https://nightlifevietnam.com/places/rokusho"]],
+ "Towa":[["Official site","https://towavn.com"],["TripAdvisor","https://www.tripadvisor.com/Restaurant_Review-g293925-d15000545"],["Facebook","https://www.facebook.com/towahcmc"],["DiningCity","https://www.diningcity.vn/hochiminhcity/Towa_Japanese_Cuisine_Lounge"],["Klook","https://www.klook.com/en-US/activity/181510-towa-japanese-restaurant-premium-dining-experience"]],
+ "Yen Sushi & Sake Pub":[["Official site","https://yensushisake.vn"],["Branches","https://yensushisake.vn/branches-yen-sushi-sake-pub-japanese-restaurant"],["TripAdvisor","https://www.tripadvisor.com/Restaurant_Review-g293925-d8529767"],["Facebook","https://www.facebook.com/yensushisakepub"]],
+ "Yen Sushi Premium":[["Official site","https://yensushipremium.vn"],["Reservations","https://yensushipremium.vn/reservations"],["Facebook","https://www.facebook.com/yen.sushi.premium"],["Mylife Group","https://mylifegroup.vn/brand/yen-sushi-premium"],["Foody","https://www.foody.vn/ho-chi-minh/yen-sushi-premium"]],
+ "5 Senses":[["Official site","https://www.5senses.asia"],["Menus","https://www.5senses.asia/menus"],["DiningCity","https://www.diningcity.vn/hochiminhcity/5_Senses"],["TripAdvisor","https://www.tripadvisor.com/Restaurant_Review-g293925-d25209955"],["Vietnam Nightlife","https://vietnamnightlife.com/en/5-senses-restaurant-427-16"],["Hotel Nikko (5 Senses not listed)","https://www.hotelnikkosaigon.com.vn"]],
+ "ROS – Yacht Club":[["Official site","https://rossaigon.vn"],["Menu","https://rossaigon.vn/menu"],["Facebook","https://www.facebook.com/rossaigon"],["Instagram","https://www.instagram.com/rossaigon.vn"]],
+ "Shamoji Robata Yaki":[["Official site","https://shamoji.vn"],["Vietcetera","https://vietcetera.com/en/shamoji-robata-yaki-saigons-theatrical-grill-restaurant"],["TripAdvisor (68 Lê Lợi)","https://www.tripadvisor.com/Restaurant_Review-g293925-d14090327"]],
+ "Basilico":[["Club Marriott – Basilico","https://www.myclubmarriott.com/hotel/restaurantdetail/en/basilico"],["JW Marriott dining","https://www.marriott.com/en-us/hotels/sgnjs-jw-marriott-hotel-and-suites-saigon/dining"],["RestaurantGuru","https://restaurantguru.com/Basilico-Ho-Chi-Minh-City"],["Facebook","https://www.facebook.com/basilicosaigon"],["dian.review (Jun 2025)","https://www.dian.review/2025/06/basilico-jw-marriott-saigon-menu-y-moi.html"]],
+ "Godmother":[["Official site","https://godmother.vn"],["Menu","https://godmother.vn/?r3d=menu"],["Facebook","https://www.facebook.com/godmothervn"],["DiningCity","https://www.diningcity.vn/hochiminhcity/Godmother_All_Day_Dining_Le_Loi"],["TripAdvisor","https://www.tripadvisor.com.au/Restaurant_Review-g293925-d17382423"]],
+ "JW Café":[["Menus (jwcafe.vn)","https://www.jwcafe.vn/en/our-menus"],["jwcafesaigon.com","https://www.jwcafesaigon.com"],["Facebook","https://www.facebook.com/jwcafesaigon"],["DiningCity","https://www.diningcity.vn/hochiminhcity/JWCafe_JWMarriott_Saigon"]],
+ "Prime Steak Boutique & Chill":[["Official site","https://primesteakboutique.com"],["TopGo","https://topgo.vn/ho-chi-minh/nha-hang-prime-steak-boutique-chill"],["DiningCity","https://www.diningcity.vn/hochiminhcity/Prime_Steak_Boutique_Chill"],["Facebook (VIP room posts)","https://www.facebook.com/primesteaksaigon"],["Instagram","https://www.instagram.com/primesteaksaigon"]],
+ "Stoker Woodfired Grill & Bar":[["Michelin Guide (D1)","https://guide.michelin.com/hk/en/ho-chi-minh/ho-chi-minh_2978179/restaurant/stoker-district-1"],["PasGo","https://pasgo.vn/nha-hang/stoker-woodfired-grill-and-bar-mac-thi-buoi-3153"],["Luxury Restaurant Awards","https://www.luxuryrestaurantawards.com/restaurant/stoker-woodfired-grill-bar"],["thaodien.app","https://thaodien.app/venue/stoker-woodfired-grill-bar-thao-dien"],["Saigoneer","https://saigoneer.com/listings/user-item/111-an-saigoneer-com/1075-stoker-woodfired-grill-bar"],["Facebook","https://www.facebook.com/stokerwoodfiredgrill"]],
+ "The Albion by Kirk Westaway":[["Hôtel des Arts – The Albion","https://www.hoteldesartssaigon.com/restaurants-bars/the-albion-restaurant"],["Tatler","https://www.tatlerasia.com/dining/the-albion-by-kirk-westaway"],["MGallery","https://mgallery.accor.com/en/hotels/9231/R004.restaurant.html"],["Instagram","https://www.instagram.com/thealbionbykirk"],["Facebook","https://www.facebook.com/p/The-Albion-by-Kirk-61566916240178"],["Michelin Guide","https://guide.michelin.com/vn/en/ho-chi-minh/ho-chi-minh_2978179/restaurant/the-albion-by-kirk-westaway"]],
+ "The Palm Restaurant & Bar":[["Bach Suites – The Palm","https://www.thebachsuites.com/thepalm"],["Marriott dining","https://www.marriott.com/en-us/hotels/sgnbs-bach-suites-saigon-a-member-of-design-hotels/dining"],["TripAdvisor","https://www.tripadvisor.com/Restaurant_Review-g293925-d32851758"],["DiningCity","https://www.diningcity.vn/hochiminhcity/The_Palm_Restaurant_Bar"],["Facebook","https://www.facebook.com/thepalm.saigon"]],
+ "ICON Cruise Saigon":[["Official site","https://iconsaigon.com"],["Booking / prices","https://iconsaigon.com/vi/dat-ve"],["Birthday–Anniversary page","https://iconsaigon.com/en/birthday-anniversary-party-sv1"],["Saigontourist","https://www.saigontouristvietnam.com/tour/-new-icon-cruise-saigon-set-menu-dinner-960"],["Traveloka","https://www.traveloka.com/en-sg/activities/vietnam/product/icon-saigon-luxury-cruise-with-options-sunset-dining-8770522648702"],["Klook","https://www.klook.com/activity/158225-icon-saigon-luxury-dining-cruise-in-ho-chi-minh-city"],["Facebook","https://www.facebook.com/ICONSAIGONCRUISE"]],
+ "Oculus":[["Tatler","https://www.tatlerasia.com/dining/oculus-vn"],["The Dot Magazine","https://thedotmagazine.com/ooh-baby-we-like-it-raw-the-new-bars-and-restaurants-in-ho-chi-minh-city-on-our-radar"],["TripAdvisor","https://www.tripadvisor.com/Attraction_Review-g293925-d33069051"],["Instagram","https://www.instagram.com/p/DKb-IITvR4w"],["Facebook","https://www.facebook.com/oculussaigon"],["Tatler Best Bars Vietnam","https://www.tatlerasia.com/list/best-bars-vietnam"]],
+ "Sen @ An Lam Retreat":[["An Lam official dining","https://anlam.com/saigon-river/sgr-dining"],["Saigon Times 'Sen & Riva'","https://english.thesaigontimes.vn/sen-riva-a-refined-culinary-journey-at-an-lam-retreats-saigon-river"],["VN Travel Live (Jul 2025)","https://vntravellive.com/en/sen-riva--dong-chay-am-thuc-moi-tai-an-lam-retreats-saigon-river-d39144.html"]],
+};
+
+// UI chrome strings
+let LANG = 'en';
+const UI = {
+ en:{eyebrow:"Ho Chi Minh City · Visa Premium Dining 2026", title:"a thousand days, one table",
+  sub:"A curated dining guide for the milestone — non-Vietnamese, private, and worth remembering. Steakhouse-led, with a few showstoppers along the river and above the skyline.",
+  prog:'Visa Signature / Infinite / Business · Program <b>1 Jul – 30 Sep 2026</b> · Booked through the Visa concierge',
+  lblShort:"The shortlist", noteShort:'Chosen for private rooms, romance, and a genuine sense of occasion. Prices are per person unless noted; "++" adds 10% VAT + 5% service.',
+  lblAll:"Every restaurant", noteAll:"All 31 Ho Chi Minh City venues from the guide. Filter by cuisine, or jump to the ones with private rooms.",
+  bookH:"Reserve it", bookP:"Bookings for the privilege go through the Visa concierge — not the restaurant directly, or you won't get the program rate. Each restaurant's own number is on its card if you'd rather book outside the program.",
+  cHotline:"Hotline", cEmail:"Email", cLead:"Lead time", cLeadVal:"Book ≥ 1 day ahead",
+  fine:"Discounts: 10% any bill · 25% on 1–3M VND · 50% over 3M VND (max 2M off). Birthday perk: up to 4 free drinks on bills over 1M VND. Cancel/change ≥ 2 hrs ahead. Min. 2 guests, cardholder must be present.",
+  footer:'Prices researched 11 Jul 2026 from restaurant sites, Michelin, Tatler, PasGo &amp; TripAdvisor — not published in the Visa guide.<br>✓ = confirmed price · "est." = estimate. Always reconfirm the exact figure and private-room availability when you book.',
+  copy:"Copy", copied:"Copied ✓", perPerson:"VND / person", est:"· est.", conf:"· ✓ confirmed", more:"View full detail", countOf:"of",
+  mEst:"· estimate", mConf:"· ✓ confirmed", mPlace:"The place", mDishes:"Signature dishes", mPriv:"Private room",
+  mPriceD:"Price detail", mAnniv:"For the anniversary", mAwards:"Awards & standing", mFind:"Find it", mRefs:"References",
+  mBook:(n)=>`Copy a booking request for ${n}`, mBooked:"Copied to clipboard ✓",
+  filters:{All:"All",Steakhouse:"Steakhouse",Japanese:"Japanese",Chinese:"Chinese",European:"European",Fusion:"Fusion",Korean:"Korean",Vietnamese:"Vietnamese",Vegetarian:"Vegetarian","Private rooms":"Private rooms"}},
+ vi:{eyebrow:"TP. Hồ Chí Minh · Ẩm thực Cao cấp Visa 2026", title:"một nghìn ngày, một bàn tiệc",
+  sub:"Cẩm nang ẩm thực tuyển chọn cho cột mốc đáng nhớ — phi Việt, riêng tư và đáng ghi dấu. Lấy steakhouse làm trọng tâm, cùng vài điểm đến ấn tượng bên sông và trên cao.",
+  prog:'Visa Signature / Infinite / Business · Chương trình <b>1/7 – 30/9/2026</b> · Đặt qua tổng đài Visa',
+  lblShort:"Danh sách tuyển chọn", noteShort:'Chọn vì có phòng riêng, lãng mạn và cảm giác trọng đại thực sự. Giá tính theo mỗi người trừ khi ghi chú khác; "++" cộng 10% VAT + 5% phí phục vụ.',
+  lblAll:"Tất cả nhà hàng", noteAll:"Toàn bộ 31 nhà hàng tại TP.HCM trong cẩm nang. Lọc theo ẩm thực, hoặc xem nơi có phòng riêng.",
+  bookH:"Đặt bàn", bookP:"Đặt bàn hưởng ưu đãi phải qua tổng đài Visa — không đặt trực tiếp với nhà hàng, nếu không sẽ không được hưởng giá chương trình. Số điện thoại riêng của từng nhà hàng có trên thẻ nếu bạn muốn đặt ngoài chương trình.",
+  cHotline:"Tổng đài", cEmail:"Email", cLead:"Thời gian đặt", cLeadVal:"Đặt trước ≥ 1 ngày",
+  fine:"Ưu đãi: 10% mọi hóa đơn · 25% cho 1–3 triệu VNĐ · 50% trên 3 triệu VNĐ (giảm tối đa 2 triệu). Đặc quyền sinh nhật: tối đa 4 đồ uống miễn phí cho hóa đơn trên 1 triệu VNĐ. Hủy/đổi ≥ 2 giờ trước. Tối thiểu 2 khách, chủ thẻ phải có mặt.",
+  footer:'Giá được tra cứu ngày 11/7/2026 từ website nhà hàng, Michelin, Tatler, PasGo &amp; TripAdvisor — không có trong cẩm nang Visa.<br>✓ = giá đã xác nhận · "ước tính" = ước tính. Luôn xác nhận lại giá chính xác và phòng riêng khi đặt bàn.',
+  copy:"Sao chép", copied:"Đã sao chép ✓", perPerson:"VNĐ / người", est:"· ước tính", conf:"· ✓ đã xác nhận", more:"Xem chi tiết", countOf:"trong",
+  mEst:"· ước tính", mConf:"· ✓ đã xác nhận", mPlace:"Về nhà hàng", mDishes:"Món đặc trưng", mPriv:"Phòng riêng",
+  mPriceD:"Chi tiết giá", mAnniv:"Cho dịp kỷ niệm", mAwards:"Giải thưởng & vị thế", mFind:"Địa chỉ & liên hệ", mRefs:"Nguồn tham khảo",
+  mBook:(n)=>`Sao chép mẫu đặt bàn cho ${n}`, mBooked:"Đã sao chép ✓",
+  filters:{All:"Tất cả",Steakhouse:"Steakhouse",Japanese:"Nhật",Chinese:"Trung Hoa",European:"Âu",Fusion:"Fusion",Korean:"Hàn",Vietnamese:"Việt",Vegetarian:"Chay","Private rooms":"Có phòng riêng"}}
+};
+
+// Vietnamese overrides for restaurant card+modal text (keyed by name). Untranslated fields fall back to English.
+const VI = {
+ "Prime Steak Boutique & Chill":{c:"Steakhouse",concept:"Steakhouse boutique đầu tiên tại TP.HCM chuyên bò dry-aged; Bếp trưởng Khai Vu (25+ năm tại Las Vegas), ~900m² trên 3 tầng + bar sân thượng.",privtxt:"Phòng VIP tối đa 15 khách — có bếp nấu riêng",anniv:"'Catering by PRIME' thực đơn kỷ niệm + pairing rượu-thịt; hầm 540 chai vang; ánh nến",sig:"Bò dry-aged 45/65/100 ngày; gan ngỗng; nước sốt nhà làm",
+  dConcept:"Steakhouse boutique đầu tiên tại TP.HCM chuyên bò dry-aged. Bếp trưởng điều hành Khai Vu (25+ năm tại các steakhouse Las Vegas). Tủ ủ khô chứa ~1 tấn thịt. ~900m² trên 3 tầng + bar sân thượng.",dishes:["Bò dry-aged ủ 45, 65 và 100 ngày","Black Angus NY 300g (1.100.000); Ribeye 300g (1.300.000); ribeye dry-aged 45 ngày 650.000/100g","Gan ngỗng Pháp, phở, hải sản, pasta; sốt nhà làm"],priv:"✓ Phòng VIP tối đa 15 khách, CÓ BẾP NẤU RIÊNG. Sức chứa 250 — Tầng 1 (40), Tầng 2 (80), bar Tầng 3 (80–100).",anniv2:"✓ 'Catering by PRIME' — thực đơn riêng cho kỷ niệm; pairing rượu-thịt; hầm 540 chai vang; không gian ánh nến ấm cúng. Bánh/champagne chưa xác nhận — hỏi trực tiếp.",flag:""},
+ "Stoker Woodfired Grill & Bar":{c:"Steakhouse",concept:"Steakhouse Âu-Mỹ nướng củi; 4 khu nấu lửa + phòng ủ khô; chi nhánh D1 có DRAM bar cocktail/xì gà tầng trên.",privtxt:"D1: không có (sức chứa 80). Thảo Điền: thuê nguyên venue",anniv:"Tặng bánh cho dịp đặc biệt (Thảo Điền); nổi tiếng cho hẹn hò",sig:"Sườn Wagyu nướng; gan ngỗng áp chảo; cá hồi xông khói; ức vịt",
+  dConcept:"Steakhouse nướng củi Âu-Mỹ 'lấy cảm hứng từ nấu trên lửa củi và than hồng'. 4 khu nấu lửa riêng + phòng ủ khô. Venue D1 3 tầng có quầy bếp mở và DRAM Bar tầng trên (cocktail, bi-a, xì gà).",dishes:["Sườn bò Wagyu nướng sốt BBQ; gan ngỗng Pháp áp chảo","Cá hồi Na Uy xông khói-nướng; cá ngừ nướng; ức vịt giòn","Sườn cừu hầm; bò tartare; hàu Pháp tươi"],priv:"D1 (Mạc Thị Bưởi): KHÔNG có phòng riêng (sức chứa ~80). Thảo Điền: thuê nguyên venue (100+ đứng / 60+ ngồi).",anniv2:"✓ Tặng bánh cho dịp đặc biệt (Thảo Điền); 'lý tưởng cho tiệc kỷ niệm, hẹn hò'. Chưa xác nhận champagne/thực đơn set; D1 không trang trí sự kiện.",flag:""},
+ "Towa":{c:"Nhật · view",concept:"Ẩm thực Nhật cao cấp + quầy omakase + lounge cocktail phong cách Ginza trên tầng 28 với sân thượng 360°; cũng có thực đơn Quảng Đông.",privtxt:"Bốn khu riêng + set 2 khách để cầu hôn",anniv:"Set kỷ niệm 'Romantic Spark' + thực đơn cặp đôi; tặng tráng miệng",sig:"Omakase; sashimi cá hồi & bụng cá ngừ; tapas fusion",
+  dConcept:"Ẩm thực Nhật cao cấp + quầy sushi omakase + lounge cocktail Ginza trên tầng 28, view toàn cảnh và sân thượng 360°. Tên nghĩa là 'trường tồn'. Cũng có thực đơn Quảng Đông ('Lai'). Hải sản từ Toyosu, Hokkaido, Nagasaki; cá ngừ vây xanh từ Kochi.",dishes:["Omakase (bếp trưởng tuyển chọn)","Sashimi cá hồi & bụng cá ngừ; sushi tổng hợp","Tapas fusion; hải sản nhập Nhật"],priv:"✓ BỐN khu riêng có trang trí (gồm phòng tatami) + set 2 khách đặc biệt cho cầu hôn.",anniv2:"✓ Set kỷ niệm 'Romantic Spark' + thực đơn cặp đôi; view tầng 28 / sân thượng; khách nhận thêm tráng miệng & mang rượu về.",flag:"Footer website ghi '© 2018' — thông tin mới nhất là TripAdvisor 2026."},
+ "ICON Cruise Saigon":{c:"Fusion · du thuyền",concept:"Du thuyền ăn tối sang trọng trên sông Sài Gòn; ẩm thực cao cấp, nhạc sống, trình diễn và pháo hoa T6/T7/CN; ICON Skydeck (tối đa 150).",privtxt:"Phòng riêng + trang trí VIP; Skydeck 150 khách",anniv:"HOÀN CHỈNH NHẤT — thực đơn riêng, bánh kỷ niệm, hoa, chỗ ngồi riêng, phòng VIP, biểu diễn trực tiếp",sig:"Set Menu Signature nhiều món cố định",
+  dConcept:"Du thuyền ăn tối sang trọng trên sông Sài Gòn (Tân Group). Ẩm thực cao cấp Á-Âu. Ban nhạc sống (T6 & T7), biểu diễn nghệ thuật Việt, ảo thuật (CN) và pháo hoa T6/T7/CN. Không gian sự kiện ICON Skydeck ngoài trời (tối đa 150).",dishes:["'Set Menu Signature' nhiều món cố định (Quảng Đông đương đại/quốc tế)","Thực đơn: Sunset, Set tối, đồ uống","Món cụ thể chưa công bố"],priv:"✓ Có 'Private Room' & 'Private Event'; phòng VIP trang trí riêng; Skydeck tối đa 150. Sức chứa/phí chưa công bố — hỏi tổng đài.",anniv2:"✓✓ HOÀN CHỈNH NHẤT — trang riêng 'Birthday–Anniversary' với gói riêng: thực đơn tùy chỉnh, bánh kỷ niệm, hoa, chỗ ngồi riêng, phòng VIP và biểu diễn trực tiếp.",flag:""},
+ "The Albion by Kirk Westaway":{c:"Âu · sân thượng",concept:"Ẩm thực Âu hiện đại gốc Anh — 'Reinventing British'. Nhà hàng sân thượng + bar phong cách Anh, thanh lịch thập niên 1930, view thành phố, tầng 23 Hôtel des Arts. Dẫn dắt bởi bếp trưởng 2 sao Michelin Kirk Westaway.",privtxt:"Không có phòng riêng (Dining Room ~60); yêu cầu bàn cạnh cửa sổ",anniv:"Gói kỷ niệm riêng; bàn cạnh cửa sổ ngắm đêm",sig:"The Albion Tomato; Eton Mess tinh tế; Wagyu sốt stout",
+  dConcept:"Ẩm thực Âu hiện đại gốc di sản Anh — 'Reinventing British'. Nhà hàng sân thượng + bar phong cách Anh, thanh lịch thập niên 1930, view toàn cảnh thành phố, tầng 23 Hôtel des Arts. Dẫn dắt bởi bếp trưởng 2 sao Michelin Kirk Westaway (JAAN, Singapore) cùng bếp trưởng Christopher Clarke.",dishes:["The Albion Tomato — cà chua hữu cơ Đà Lạt, ketchup nhà làm, sorbet húng-cam","Eton Mess tinh tế","Wagyu sốt stout; cá tráp; tôm hùm đất langoustine"],priv:"Không có phòng riêng chuyên biệt (Dining Room ~60). Quảng bá 'Private Dining' cho buy-out. Cặp đôi nên yêu cầu bàn cạnh cửa sổ để ngắm đêm.",anniv2:"✓ Gói kỷ niệm riêng — 'trân trọng tình yêu, ký ức và sự gắn kết'. Bàn cạnh cửa sổ ngắm toàn cảnh đêm. Có Brunch Chủ nhật.",flag:""},
+ "Yen Sushi Premium":{c:"Nhật",concept:"Kaiseki & Omakase đích thực trong biệt thự Ryotei truyền thống với cây cổ thụ và cổng gỗ cũ; Bếp trưởng Hirohito Sato (31+ năm).",privtxt:"Phòng VIP tối đa 30 khách",anniv:"Phòng VIP quảng bá cho kỷ niệm; đặt omakase trước 6–24h",sig:"Madai, Anago, Amaebi; cua Zuwai; wagyu A5 Hitachi; caviar",
+  dConcept:"'Nhà hàng Omakase Nhật đích thực hàng đầu TP.HCM.' Kaiseki & Omakase trong biệt thự Ryotei truyền thống — vườn cây tuyết tùng cổ, cổng gỗ cũ, cây đa trăm tuổi. Nguyên liệu trực tiếp từ chợ Toyosu, Tokyo. Bếp trưởng Hirohito Sato (31+ năm).",dishes:["Madai (cá tráp), Anago (lươn), Amaebi & tôm hồng Sakura","Cao cấp: cua tuyết Zuwai, wagyu A5 Hitachi, caviar, muối truffle","Set theo mùa ('Mutuki', 'Semishigure', 'Sakura'); sake Tsukinoi"],priv:"✓ Phòng VIP tối đa 30 khách; nhiều lựa chọn phòng VIP.",anniv2:"✓ Phòng VIP quảng bá cho 'tụ họp gia đình thân mật, kỷ niệm, hoặc họp mặt'. Đặt omakase trước 6–24h.",flag:""},
+ "Nikura":{c:"Nikkei",concept:"Nhà hàng Nikkei (Nhật-Peru) chuyên biệt đầu tiên tại TP.HCM; Bếp trưởng Ivan Casusol từ Lima. Tại JW Marriott.",privtxt:"2 phòng riêng + sân vườn + chef's table (8–10)",anniv:"Phòng riêng, sân vườn & bar cocktail hỗ trợ tiệc; không có gói riêng",sig:"Tiradito Concha; sò điệp sốt chanh; A8 Wagyu; Nikura Rice",
+  dConcept:"Nikkei — Nhật-Peru đích thực, nhà hàng Nikkei chuyên biệt đầu tiên của TP.HCM. 'Đối thoại giao thoa văn hóa' Peru × Nhật bởi Bếp trưởng Ivan Casusol (sinh tại Lima). Bar cocktail Pisco Hana cùng địa điểm.",dishes:["Tiradito Concha — kỹ thuật sashimi + ớt Peru","Concha — sò điệp áp chảo sốt chanh kem; A8 Wagyu Steak","Nikura Rice — nước dùng jamón, nấm shiitake, trứng chần"],priv:"✓ ~100 chỗ với 2 phòng riêng + sân vườn; chef's table 8–10. Pisco Hana có 1 phòng riêng (46 chỗ).",anniv2:"Không có gói riêng. Phòng riêng + sân vườn + bar cocktail hỗ trợ tiệc.",flag:""},
+ "Matsuri":{c:"Nhật",concept:"'Lễ hội' Nhật — Washoku + Yoshoku, izakaya hiện đại với ~300 món qua nhiều chi nhánh.",privtxt:"Phòng riêng tối đa 12 (miễn phí phòng)",anniv:"Không có gói riêng; chi nhánh Nguyễn Huệ có view sông/pháo hoa",sig:"Đa dạng món; sushi cuộn Liên Hoa; ramen char-siu",
+  dConcept:"Ẩm thực Nhật — tên nghĩa 'lễ hội'. Washoku truyền thống + Yoshoku (món Âu kiểu Nhật). 'Izakaya hiện đại' với ~300 món: sashimi, sushi, yaki, tempura, nabe. Nhiều chi nhánh.",dishes:["Điểm mạnh là sự đa dạng — không có món chủ đạo","Best-seller chay: sushi cuộn Liên Hoa, đậu hũ xào nấm","Ramen char-siu"],priv:"✓ Phòng riêng tối đa 12 (miễn phí phòng) — xác nhận tại chi nhánh.",anniv2:"Không có gói riêng. Chi nhánh Nguyễn Huệ có view sông Bạch Đằng/pháo hoa.",flag:""},
+ "Rokusho Saigon":{c:"Nhật",concept:"Izakaya Nhật + bar mixology sang trọng thoải mái, cảm giác hẻm nhỏ Tokyo; bếp mở, danh sách sake phong phú.",privtxt:"Không có (một không gian mở)",anniv:"Không tìm thấy",sig:"Xiên nướng/yakitori; cá ngừ yukhoe; udon",
+  dConcept:"Izakaya Nhật + bar mixology sang trọng thoải mái — 'nghệ thuật ẩm thực Tokyo tại Việt Nam'. Nội thất tối, trầm với bếp mở gợi cảm giác hẻm nhỏ Tokyo. Ra mắt 2024.",dishes:["Xiên nướng/yakitori; sashimi & sushi","Cá ngừ Yukke (yukhoe); udon","Món nhỏ sáng tạo; danh sách sake đáng chú ý"],priv:"Không tìm thấy (một không gian ~22.5m, quầy bar + bàn).",anniv2:"Không tìm thấy trong nguồn chính thức/đánh giá.",flag:""},
+ "Yen Sushi & Sake Pub":{c:"Nhật",concept:"Izakaya/pub fusion Nhật, nướng than nhẹ với nguyên liệu nhập khẩu và màn cắt cá ngừ.",privtxt:"Phòng tatami + 'Party Service'",anniv:"Party Service (chưa công bố); không có gói riêng",sig:"Yen Deluxe Sashimi (788.000); cuộn lươn; poke",
+  dConcept:"Izakaya/pub fusion Nhật — hương vị Nhật + toàn cầu, không gian hiện đại nhạc chill; món nướng than nhẹ giữ 'vị ngọt tự nhiên', nguyên liệu nhập Nhật. Chuỗi fusion Nhật đầu tiên tại Việt Nam.",dishes:["Sashimi tươi (chủ đạo); dĩa Yen Deluxe Sashimi (788k)","Cuộn lươn; salmon poke trên bơ; salad hải sản","Tempura; sushi gunkan; màn cắt cá ngừ Maguro Kaitai"],priv:"Một phần — phòng tatami ('khá nhiều'). Có trang 'Party Service'. Không có sức chứa/phí cụ thể.",anniv2:"Có Party Service (chi tiết chưa công bố); không có gói riêng.",flag:""},
+ "Shamoji Robata Yaki":{c:"Nhật",concept:"Izakaya robatayaki/warayaki (nướng than & lửa rơm), phong cách wabi-sabi, nguyên liệu Toyosu bay về hàng tuần.",privtxt:"Không tìm thấy",anniv:"Không tìm thấy; có màn cắt cá ngừ & trình diễn warayaki",sig:"Cá ngừ nướng lửa rơm warayaki; saba Hamayaki; đùi dê warayaki (từ 400.000)",
+  dConcept:"Izakaya robatayaki/warayaki (nướng than & lửa rơm) tái hiện văn hóa làng chài Nhật — thẩm mỹ wabi-sabi, cửa trượt thấp kiểu trà thất, bếp mở. Món được đưa trên vá gỗ 'shamoji'. Nguyên liệu chợ Toyosu bay về hàng tuần.",dishes:["Cá ngừ nướng lửa rơm warayaki (ngoài chín trong sống, ponzu + húng — một màn trình diễn)","Saba Hamayaki (cá thu muối xiên)","Đùi dê 'Yaki Goat Thigh' warayaki từ 400.000/đùi"],priv:"Không tìm thấy trong nguồn chính thức/đánh giá.",anniv2:"Không tìm thấy. Có màn cắt cá ngừ Maguro Kaitai + trình diễn warayaki; không có gói kỷ niệm.",flag:""},
+ "5 Senses":{c:"Fusion Nhật",concept:"Fusion Nhật hiện đại ('Art of Fusion') đánh thức cả năm giác quan; mỗi món như tác phẩm nghệ thuật. Tại Hotel Nikko.",privtxt:"Không tìm thấy trực tuyến",anniv:"Không tìm thấy trực tuyến",sig:"Salad rong wakame; súp miso trắng; thăn Black Angus",
+  dConcept:"Fusion Nhật hiện đại ('Art of Fusion') đánh thức cả năm giác quan; kết hợp nghệ thuật Nhật truyền thống với sang trọng đương đại — mỗi món 'một tác phẩm nghệ thuật'. Thanh lịch giản dị, tầng trệt Hotel Nikko.",dishes:["Salad rong wakame (rong nho, củ cải, ponzu)","Súp miso trắng; thăn Black Angus sốt porcini","Panna cotta dâu hoặc xoài"],priv:"Không tìm thấy trực tuyến.",anniv2:"Không tìm thấy trực tuyến.",flag:"Trang ẩm thực của Hotel Nikko không liệt kê nơi này — có vẻ là đơn vị thuê độc lập. Nên xác minh còn hoạt động."},
+ "Li Bai":{c:"Quảng Đông",concept:"Quảng Đông cao cấp, mở từ 2003; chủ đề thi nhân Lý Bạch, dim sum thủ công 60+ loại. Tại Sheraton Saigon.",privtxt:"2 phòng VIP (12–20 mỗi phòng, gộp ~35) + góc bán riêng",anniv:"Phòng riêng + thực đơn theo mùa; bánh/champagne sắp xếp theo yêu cầu",sig:"Vịt quay Bắc Kinh ủ 10 ngày (ngon nhất HCMC); há cảo bào ngư",
+  dConcept:"Quảng Đông cao cấp, mở từ 2003 (Bếp trưởng Thi Giang từ đầu). Chủ đề thi nhân Lý Bạch — họa tiết cá koi, tranh phong cảnh. Dim sum thủ công 60+ loại. Tại Sheraton Saigon.",dishes:["Vịt quay Bắc Kinh ủ 10 ngày (được ca ngợi ngon nhất HCMC)","Há cảo bào ngư & tôm thượng hạng; siew mai sò điệp Hokkaido","Bánh bao bò Wagyu tiêu đen trong thố; 'Phật Nhảy Tường'"],priv:"✓ 2 phòng VIP (12–20 mỗi phòng, gộp ~35) + góc bán riêng.",anniv2:"Phòng riêng + thực đơn theo mùa; là nhà hàng khách sạn 5 sao, bánh/champagne/trang trí có thể sắp xếp theo yêu cầu.",flag:""},
+ "Dạ Dining (DẠ 夜)":{c:"Trung Hoa hiện đại",concept:"Ẩm thực Trung Hoa hiện đại 'định hình bởi thổ nhưỡng Việt'; chủ đề điện ảnh/về đêm, view đêm toàn cảnh, biểu diễn trực tiếp. Bếp trưởng Michael Luong.",privtxt:"Phòng VIP (~16 khách) với skyline 360°",anniv:"Không gian điện ảnh + view đêm + biểu diễn; có dịch vụ VIP/sinh nhật",sig:"The Duck (vịt truffle ủ 14 ngày); Súp lươn; Bào ngư",
+  dConcept:"Ẩm thực Trung Hoa hiện đại 'định hình bởi thổ nhưỡng Việt'; chủ đề điện ảnh/về đêm ('A Nocturne in Chinese Flavour'), view đêm toàn cảnh, thiết kế Đông Dương, biểu diễn trực tiếp. Bếp trưởng Michael Luong.",dishes:["The Duck — vịt truffle ủ khô 14 ngày, 3 món","The Eel Soup — lươn + hải sâm trong nước dùng gà","The Abalone — bào ngư + gan ngỗng + trà ô long"],priv:"✓ Phòng VIP (~16 khách) với skyline 360°; quảng bá cho hẹn hò/sinh nhật/kỷ niệm.",anniv2:"✓ Không gian điện ảnh + view đêm + biểu diễn (T5–T7 19:30–21:00); có dịch vụ VIP/sinh nhật/sự kiện.",flag:""},
+ "Black Vinegar":{c:"Quảng Đông hiện đại",concept:"Quảng Đông hiện đại; sảnh + bar đồ uống + Crudo Bar (champagne & hải sản) + phòng riêng. Bếp trưởng Sam Liang.",privtxt:"Nhiều phòng riêng + Crudo Bar",anniv:"Phòng riêng + Crudo Bar hợp tiệc; không có gói riêng",sig:"Gà luộc sốt Tứ Xuyên; tiểu long bao; dim sum",
+  dConcept:"Quảng Đông hiện đại. Sảnh sang trọng + bar đồ uống + Crudo Bar chuyên biệt (champagne & hải sản) + phòng riêng. Bếp trưởng Sam Liang (set trưa).",dishes:["Gà luộc rút xương sốt Tứ Xuyên","Tiểu long bao; dim sum (buffet dim sum Chủ nhật)","Set trưa tùy chọn — chọn 6 trong 21 món"],priv:"✓ Nhiều phòng riêng + Crudo Bar độc quyền. Sức chứa/phí chưa công bố.",anniv2:"Phòng riêng + Crudo Bar (champagne & hải sản) hợp tiệc. Không có gói bánh/trang trí.",flag:""},
+ "Mãn by UnicB":{c:"Trung Hoa (Giang Nam)",concept:"Ẩm thực Trung Hoa cao cấp chuyên Giang Nam (Chiết Giang/Tô Châu/Hàng Châu) với kỹ thuật hiện đại. Kế thừa UnicB Hà Nội.",privtxt:"Không tìm thấy (chỉ 'góc riêng')",anniv:"Không tìm thấy",sig:"Viên tôm Dương Quý Phi; Vịt Bắc Kinh kiểu mới",
+  dConcept:"Ẩm thực Trung Hoa cao cấp chuyên Giang Nam — truyền thống Chiết Giang, Tô Châu, Hàng Châu tái hiện với kỹ thuật hiện đại + ảnh hưởng Việt. 'Mãn' = sự viên mãn. Kế thừa UnicB Hà Nội.",dishes:["Viên tôm Dương Quý Phi — vỏ củ dền, tôm/mực/vải giã tay, hạt macadamia giòn","Vịt Bắc Kinh kiểu mới — ủ khô với 24 loại thảo mộc, quay dầu trà, phục vụ hai kiểu"],priv:"Không tìm thấy rõ (chỉ chỗ ngồi 'góc riêng').",anniv2:"Không tìm thấy.",flag:"Không tìm được bài đăng dưới 12 tháng; nhà hàng có vẻ đang mở, độ mới chưa chắc chắn."},
+ "Home Saigon":{c:"Việt tinh tế",concept:"Ẩm thực Việt tinh tế 'thuần Việt' cả ba miền + Mekong, trong biệt thự Art Deco phục dựng thập niên 1970 — ban công, sân thượng, hồ nước. ~120 chỗ.",privtxt:"Phòng riêng gồm MỘT PHÒNG CÓ BAN CÔNG, cùng sân thượng",anniv:"Phòng riêng quảng bá cho dịp đặc biệt",sig:"Salad cua; cua rang; vịt nướng thảo mộc; tôm hùm xào",
+  dConcept:"Ẩm thực Việt tinh tế 'thuần Việt' cả ba miền + Mekong, trong biệt thự Art Deco Pháp phục dựng thập niên 1970 — tông trầm ấm, xanh navy, ban công, sân thượng, hồ nước. ~120 chỗ.",dishes:["Salad cua; bún cua; chả giò cua","Vịt nướng thảo mộc; tôm hùm xào; cua rang","Sườn heo nướng; bò nướng kiểu Nam; sườn bê"],priv:"✓ Phòng riêng yên tĩnh thanh lịch gồm MỘT PHÒNG CÓ BAN CÔNG, cùng sân thượng.",anniv2:"✓ Phòng riêng quảng bá cho 'dịp đặc biệt' / 'không gian riêng tư'; khuyến mãi tiệc trên IG. Không có gói bánh/champagne cụ thể.",flag:"Địa chỉ 216/4 (site thương hiệu) vs 252 Điện Biên Phủ (directory). Lưu ý có 'Home Saigon' khác ở 185/28 Phạm Ngũ Lão."},
+ "Đông Dương":{c:"Việt gia đình",concept:"Ẩm thực Việt truyền thống/gia đình trong không gian Đông Dương; mâm cơm Bắc + món đường phố. ~400 chỗ.",privtxt:"2 phòng riêng (8–12 và 15–25 khách)",anniv:"Hợp tụ họp, sinh nhật; món đặt trước cần cọc",sig:"Bánh khọt hải sản; bánh tôm Hồ Tây; cá lóc quay me",
+  dConcept:"Ẩm thực Việt truyền thống/gia đình trong không gian Đông Dương. Giữ bản sắc — mâm cơm Bắc Bộ + món đường phố. ~400 chỗ (Tầng 1: 150, Tầng 2: 250).",dishes:["Bánh khọt hải sản; bánh tôm Hồ Tây","Cá lóc quay me; lẩu riêu cua; lẩu măng chua cá bông lau","Mâm cơm Bắc; bánh xèo; bánh bèo; ốc bươu nhồi"],priv:"✓ 2 phòng riêng (một 8–12, một 15–25 khách). Không tính phí phòng.",anniv2:"Hợp tụ họp gia đình, sinh nhật; món đặt trước cần cọc. Không có gói riêng.",flag:""},
+ "Mam Mam Eatery & Lounge":{c:"Việt vùng miền",concept:"Ẩm thực Việt vùng miền/hiện đại 'trở về cội nguồn' với nguyên liệu vùng miền; 'mâm' úp ngược treo như UFO. Thân thiện chay.",privtxt:"Không tìm thấy (có Lounge + bar + ngoài trời)",anniv:"Không có gói riêng; bar + lounge hỗ trợ tiệc",sig:"Ba chỉ heo nấu chậm; gà Đắk Nông cơm lam; sashimi cá rô phi",
+  dConcept:"Ẩm thực Việt vùng miền/hiện đại 'trở về cội nguồn' với nguyên liệu vùng miền và cảm giác ăn chung. Điểm nhấn nội thất: 'mâm' úp ngược treo 'như UFO'. Thân thiện chay. Phía sau Le Méridien.",dishes:["Ba chỉ heo nấu chậm tan trong miệng; gà Đắk Nông cơm lam","Sashimi cá rô phi; vịt ủ khô với bánh phồng tôm","Gỏi cá Mekong; bánh thốt nốt An Giang"],priv:"Không tìm thấy — có Lounge, bar và chỗ ngoài trời, nhưng không có phòng riêng.",anniv2:"Không có gói riêng. IG từng quảng bá thực đơn đặc biệt; bar + lounge + ngoài trời hỗ trợ tiệc.",flag:""},
+ "Sen @ An Lam Retreat":{c:"Việt miền Nam",concept:"Ẩm thực Việt miền Nam bên sông, ra mắt giữa 2025 trong dự án 'Sen & Riva'. Mâm tròn chung, công thức gia truyền. Bếp trưởng Hung.",privtxt:"Riêng theo yêu cầu — bàn hồ bơi, sàn ngắm sao, bàn ven sông",anniv:"Tiệc riêng lãng mạn (sàn ngắm sao, hồ bơi), tiệc cưới",sig:"Cá lóc hấp ba chỉ (Châu Đốc); cá lóc nướng mía; canh chua bông lục bình",
+  dConcept:"Ẩm thực Việt miền Nam bên sông fine-casual, ra mắt giữa 2025 trong dự án 'Sen & Riva' tại An Lam Retreats Saigon River. Hoài niệm, mâm tròn chung, nguyên liệu địa phương. Bếp trưởng Hung (10+ năm món Nam).",dishes:["Cá lóc hấp ba chỉ (kiểu Châu Đốc)","Cá lóc nướng mía; canh chua bông lục bình","Chè trôi nước gừng; cá nước ngọt Mekong, nước mắm nhà làm"],priv:"✓ Riêng theo yêu cầu — bàn hồ bơi, bữa tối lãng mạn dưới sao trên sàn, bàn ven sông.",anniv2:"✓ Tiệc riêng lãng mạn (sàn ngắm sao, hồ bơi), tiệc cưới & sự kiện; ven sông cho các dịp. Bánh/champagne chưa liệt kê.",flag:""},
+ "Cela":{c:"Chay",concept:"Nhà hàng chay/thuần chay hiện đại + bar rượu tự nhiên; món nhỏ kiểu Nhật; nguyên liệu từ vườn sân thượng + trang trại Đà Lạt (chị em với Tales).",privtxt:"Không tìm thấy",anniv:"Không tìm thấy; phục vụ tối kiểu wine-bar hợp cặp đôi",sig:"Món chay nhỏ theo mùa kiểu Nhật",
+  dConcept:"Nhà hàng chay/thuần chay hiện đại + bar rượu tự nhiên; món nhỏ kiểu Nhật. Nguyên liệu từ vườn sân thượng + trang trại Đà Lạt riêng; triết lý không rác thải. Chị em với Tales (Michelin Green Star).",dishes:["Món chay nhỏ theo mùa kiểu Nhật (chưa nêu tên cụ thể)"],priv:"Không tìm thấy trong nguồn công bố.",anniv2:"Không tìm thấy — không có gói bánh/champagne. Phục vụ tối wine-bar hợp cặp đôi.",flag:"Tư liệu mới nhất ~2025 (footer © 2024). Nên xác minh còn hoạt động + giá."},
+ "Đu Đủ Xanh":{c:"Chay",concept:"Chay/thuần chay không bột ngọt; thuộc doanh nghiệp xã hội 'Journey of the Senses' (nhân viên khiếm thính, khiếm thị, đa dạng giới).",privtxt:"Không tìm thấy (không gian tự nhiên thân mật)",anniv:"Không tìm thấy; không gian yên tĩnh thân mật",sig:"Combo nấm kho; Larb Chay; lẩu trái cóc (420.000)",
+  dConcept:"Chay/thuần chay không bột ngọt, nguyên liệu tự nhiên. Thuộc doanh nghiệp xã hội 'Journey of the Senses' (nhân viên khiếm thính, khiếm thị, đa dạng giới; chị em với Noir 'Dining in the Dark'). Được khen vì tiết chế — không bắt chước thịt.",dishes:["Combo nấm kho (135k); Larb Chay (125k); Bí Ngòi Nhồi (125k)","Mì dẹt Tứ Xuyên lạnh (145k); salad đậu rồng (135k)","Lẩu trái cóc (420k); mousse khoai mì (95k)"],priv:"Không tìm thấy.",anniv2:"Không tìm thấy rõ. Không gian yên tĩnh, tinh tế; không có gói bánh/champagne.",flag:"Địa chỉ khác nhau (178A vs 178B Hai Bà Trưng) — có lẽ cùng khu."},
+ "Homido":{c:"BBQ Hàn",concept:"BBQ than Hàn Quốc đích thực; bếp trưởng Hàn 25+ năm; 200+ món, kim chi nhà làm, banchan mỗi ngày.",privtxt:"Phòng riêng ('riêng tư tối đa')",anniv:"Không tìm thấy rõ; phòng riêng hợp nhóm/tiệc",sig:"Wagyu & ba chỉ nướng than; sườn Wagyu hầm; kim chi jjigae",
+  dConcept:"BBQ than Hàn Quốc đích thực (fusion Hàn). Bếp trưởng Hàn 25+ năm; 200+ món Hàn. Thịt cao cấp nướng than, rau Đà Lạt, kim chi & ssamjang nhà làm, banchan mỗi ngày. Có phòng riêng; không gian hiện đại.",dishes:["Wagyu & ba chỉ nướng than (samgyeopsal)","Sườn Wagyu hầm (công thức hoàng gia)","Kim chi jjigae; lẩu kim chi thịt tươi (cho 3, 480k); naengmyeon; bulgogi"],priv:"✓ Phòng riêng 'riêng tư và thoải mái tối đa'.",anniv2:"Không tìm thấy rõ. Phòng riêng hợp nhóm/tiệc; không có gói bánh/champagne.",flag:""},
+ "ROS – Yacht Club":{c:"Á đương đại",concept:"Ẩm thực Á đương đại bên sông — 'nơi truyền thống giao thoa hiện đại' bởi Bếp trưởng Vĩnh. Dining + river lounge + mixology + biểu diễn, ven sông Sài Gòn.",privtxt:"Không tìm thấy trong văn bản; bàn ven sông",anniv:"Tổ chức sự kiện + bàn ven sông + river lounge — hợp lãng mạn",sig:"Thực đơn chỉ dạng hình — không trích được tên món",
+  dConcept:"Ẩm thực Á đương đại bên sông — 'nơi truyền thống giao thoa hiện đại' bởi Bếp trưởng Vĩnh. Từ ngày sang đêm: dining + river lounge + cocktail/mixology + biểu diễn, ven sông Sài Gòn tại Bến Bạch Đằng. Từ 2019.",dishes:["Thực đơn chỉ dạng hình — không trích được tên món","À La Carte, trưa, set menu, trà chiều, đồ uống, cocktail","Set menu cần đặt trước 1–2 ngày"],priv:"Không tìm thấy trong văn bản. Gallery cho thấy tiệc cưới & sự kiện thương hiệu (Dior). Bàn ven sông là điểm nhấn.",anniv2:"✓ Tổ chức sự kiện (cưới, tiệc thương hiệu) + bàn ven sông + river lounge = hợp lãng mạn. Không có gói cụ thể.",flag:""},
+ "Basilico":{c:"Ý",concept:"Ẩm thực Ý đích thực — trattoria + sáng tạo đương đại; thực đơn mới 2026 bởi Bếp trưởng Francesco Leone; pasta thủ công, pizza lò củi. Tại JW Marriott.",privtxt:"Không riêng cho Basilico (khách sạn có venue sự kiện)",anniv:"Từng có set Valentine 2026 cho cặp đôi; làm set kỷ niệm",sig:"Bò Wagyu Tajima; caviar Imperial; pasta thủ công",
+  dConcept:"Ẩm thực Ý đích thực — tinh thần trattoria + sáng tạo đương đại + hiếu khách Việt. Pasta thủ công, pizza lò củi, à la carte. Thực đơn mới 2026 bởi Bếp trưởng Ý Francesco Leone (20+ năm). Tại JW Marriott.",dishes:["Từ thực đơn 2026: bò Wagyu Tajima, caviar Imperial, pasta thủ công","Arancini (275k); Insalata Basilico (335k)","Pizza Amatriciana (370k); Affogato (175k)"],priv:"Không riêng cho Basilico (JW Marriott có venue sự kiện riêng).",anniv2:"✓ Từng có set Valentine 2026 5 món cho 2 người → làm set kỷ niệm/cặp đôi. Không có gói cố định.",flag:""},
+ "Godmother":{c:"Quốc tế",concept:"Ăn cả ngày, concept brunch Úc + biến tấu Việt hiện đại; 'chốn bình yên ấm áp' gần chợ Bến Thành.",privtxt:"Không tìm thấy",anniv:"Không có gói riêng; bán bánh, có catering",sig:"Bữa sáng cả ngày; bánh mì 'Betweens'; bánh ngọt",
+  dConcept:"Ăn cả ngày, concept brunch Úc — 'từ món brunch Úc kinh điển đến hương vị Việt biến tấu hiện đại'; món lành mạnh, cà phê, bánh ngọt. Tên = 'mẹ đỡ đầu', chốn bình yên ấm áp gần chợ Bến Thành.",dishes:["Bữa sáng/brunch cả ngày (trứng, pancake, smoothie bowl)","Bánh mì 'Betweens'; salad; món chính","Bánh ngọt; món Việt biến tấu hiện đại"],priv:"Không tìm thấy.",anniv2:"Không có gói riêng. Bán bánh ngọt; có catering. Ít thiên về dịp trọng đại nhất danh sách.",flag:""},
+ "JW Café":{c:"Buffet quốc tế",concept:"Buffet quốc tế cả ngày, gần đây định vị lại thành nhà hàng hải sản cao cấp với quầy nấu trực tiếp + à la carte. Tại JW Marriott.",privtxt:"Không riêng cho JW Café",anniv:"Không có gói riêng; buffet khuyến mãi (giảm 30% Club Marriott)",sig:"Buffet hải sản cao cấp; quầy nấu trực tiếp",
+  dConcept:"Buffet quốc tế cả ngày, gần đây định vị lại thành nhà hàng hải sản cao cấp ('hải sản tươi') với quầy nấu quốc tế trực tiếp + à la carte. Tại JW Marriott.",dishes:["Buffet hải sản cao cấp","Quầy nấu quốc tế trực tiếp","Món cụ thể chưa liệt kê"],priv:"Không riêng cho JW Café (khách sạn có không gian sự kiện riêng).",anniv2:"Không có gói riêng. Buffet khuyến mãi (giảm 30% qua Club Marriott).",flag:"Địa chỉ 'Hai Bà Trưng & Lê Duẩn' chưa xác nhận — nguồn chính thức ghi Nguyễn Du & Lê Văn Hưu."},
+ "Oculus":{c:"Cocktail · dining",concept:"Bar cocktail + dining đa giác quan; không gian thiết kế như một con mắt; pairing cocktail-món ăn là điểm nhấn.",privtxt:"Không tìm thấy (trung tâm là quầy bar tròn)",anniv:"Không tìm thấy; bar cocktail thân mật, không phải nơi tổ chức tiệc",sig:"Cocktail 'The Steady Look' với Chutoro; củ cải caviar; bánh mì uni",
+  dConcept:"Bar cocktail + dining đa giác quan. Không gian thiết kế như một con mắt — cửa kính ('giác mạc'), cửa trượt ('đồng tử'), quầy bar tròn trung tâm ('thủy tinh thể'). Bartender Phạm Hồng Toàn chuyên 'cocktail bị lãng quên'; bếp bởi Chef Anh Khoa. Pairing cocktail-món ăn là điểm nhấn.",dishes:["Pairing đặc trưng — cocktail 'The Steady Look' (gin, dill sake, nước cà chua) với Chutoro (bụng cá ngừ)","Củ cải phủ caviar; bánh mì uni","Waffle bơ"],priv:"Không tìm thấy. Bố cục xoay quanh quầy bar tròn; không quảng cáo phòng riêng.",anniv2:"Không tìm thấy. Định vị là bar cocktail thân mật/độc quyền hơn là nơi tổ chức tiệc.",flag:"Giờ mở gần đây thay đổi (nguồn khác nhau) — nên xác nhận lại. Nơi rất mới."},
+};
+
+// Vietnamese overrides for the featured picks (keyed by name)
+const picksVI = {
+ "Prime Steak Boutique & Chill":{rank:"★ Lựa chọn steakhouse", why:"Steakhouse hay nhất (Gourmet Vietnam 2025). Phòng VIP 15 chỗ có bếp riêng, hầm 540 chai vang, bò dry-aged 45/65/100 ngày. 'Catering by PRIME' làm thực đơn kỷ niệm & pairing rượu-thịt.", badge:"Lựa chọn hàng đầu"},
+ "Stoker Woodfired Grill & Bar":{rank:"Lựa chọn Michelin", why:"Michelin Selected ba năm liền. Sườn Wagyu nướng củi và gan ngỗng áp chảo. Chi nhánh Thảo Điền tặng bánh cho dịp đặc biệt (D1 không có phòng riêng).", badge:""},
+ "ICON Cruise Saigon":{rank:"★ Điểm nhấn", why:"Trọn vẹn nhất danh sách: du thuyền sông Sài Gòn với gói kỷ niệm riêng — thực đơn tùy chỉnh, bánh, hoa, phòng VIP, nhạc sống và pháo hoa T6–CN.", badge:"Ấn tượng"},
+ "Towa":{rank:"Lãng mạn trên cao", why:"Ẩm thực Nhật tầng 28 view toàn cảnh, bốn khu riêng, và set kỷ niệm 'Romantic Spark' — cùng set 2 khách dành cho cầu hôn.", badge:""},
+ "The Albion by Kirk Westaway":{rank:"Sang trọng sân thượng", why:"Món Anh hiện đại bởi bếp trưởng 2 sao Michelin Kirk Westaway, trên sân thượng tầng 23 Hôtel des Arts. Gói kỷ niệm riêng và bàn cạnh cửa sổ ngắm thành phố.", badge:""},
+};
+
+function L(){return UI[LANG];}
+function pickField(p,f){ if(LANG==='vi'&&picksVI[p.name]&&picksVI[p.name][f]!==undefined) return picksVI[p.name][f]; return p[f]; }
+function dField(d,f){ if(LANG==='vi'&&VI[d.n]&&VI[d.n][f]!==undefined) return VI[d.n][f]; return d[f]; }
+// modal fields: VI override (viKey) → English details → data
+function xField(name,dobj,detObj,key,viKey){
+  if(LANG==='vi'&&VI[name]&&VI[name][viKey]!==undefined) return VI[name][viKey];
+  if(detObj&&detObj[key]!==undefined) return detObj[key];
+  return dobj[key]!==undefined?dobj[key]:'';
+}
+
+// ---- render picks ----
+function renderPicks(){
+  document.getElementById('picks').innerHTML = picks.map(p=>{
+    const badge=pickField(p,'badge');
+    return `
+    <div class="pick ${p.top?'top':''}" style="cursor:pointer" onclick="openModal('${p.name.replace(/'/g,"\\'")}')">
+      ${badge?`<span class="badge ${p.wow?'wow':''}">${badge}</span>`:''}
+      <div class="rank">${pickField(p,'rank')}</div>
+      <h3>${p.name}</h3>
+      <div class="price">${p.price} ${L().perPerson}</div>
+      <p>${pickField(p,'why')}</p>
+    </div>`;}).join('');
+}
+
+// ---- filters ----
+const groups = ["All","Steakhouse","Japanese","Chinese","European","Fusion","Korean","Vietnamese","Vegetarian","Private rooms"];
+let active = "All";
+const fEl = document.getElementById('filters');
+function renderFilters(){
+  fEl.innerHTML = groups.map(g=>`<button class="chip ${g===active?'active':''}" data-g="${g}">${L().filters[g]}</button>`).join('')
+    + `<span class="count" id="count"></span>`;
+  fEl.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{active=b.dataset.g;renderFilters();renderGrid();});
+}
+// ---- grid ----
+const gEl = document.getElementById('grid');
+function match(d){
+  if(active==="All") return true;
+  if(active==="Private rooms") return d.priv==="yes";
+  return d.g===active;
+}
+function renderGrid(){
+  const rows = data.filter(match);
+  document.getElementById('count').textContent = rows.length + " " + L().countOf + " " + data.length;
+  gEl.innerHTML = rows.map(d=>`
+    <div class="card" onclick="openModal('${d.n.replace(/'/g,"\\'")}')">
+      <div class="top"><h3>${d.n}</h3><span class="cuisine-tag">${dField(d,'c')}</span></div>
+      <div class="price-line">${d.price} <span class="est">${d.est?L().est:L().conf}</span></div>
+      <div class="concept">${dField(d,'concept')}</div>
+      <div class="rows">
+        <div class="row"><span class="k">${L().mPriv}</span><span class="v ${d.priv==='yes'?'yes':'no'}">${dField(d,'privtxt')}</span></div>
+        <div class="row"><span class="k">${L().mAnniv}</span><span class="v">${dField(d,'anniv')}</span></div>
+        <div class="row"><span class="k">${L().mDishes}</span><span class="v">${dField(d,'sig')}</span></div>
+      </div>
+      <div class="awards">${d.awards}</div>
+      <div class="meta">${d.addr} · <span class="phone">${d.phone}</span><br>${d.hours}</div>
+      <div class="more">${L().more}</div>
+    </div>`).join('');
+}
+
+// ---- language switch ----
+function setLang(lang){
+  LANG=lang;
+  document.getElementById('lang-en').classList.toggle('on',lang==='en');
+  document.getElementById('lang-vi').classList.toggle('on',lang==='vi');
+  document.documentElement.lang=lang;
+  const u=L();
+  document.getElementById('t-eyebrow').innerHTML=u.eyebrow;
+  document.getElementById('t-title').textContent=u.title;
+  document.getElementById('t-sub').textContent=u.sub;
+  document.getElementById('t-prog').innerHTML=u.prog;
+  document.getElementById('t-lbl-shortlist').textContent=u.lblShort;
+  document.getElementById('t-note-shortlist').textContent=u.noteShort;
+  document.getElementById('t-lbl-all').textContent=u.lblAll;
+  document.getElementById('t-note-all').textContent=u.noteAll;
+  document.getElementById('t-book-h').textContent=u.bookH;
+  document.getElementById('t-book-p').textContent=u.bookP;
+  document.getElementById('t-c-hotline').textContent=u.cHotline;
+  document.getElementById('t-c-email').textContent=u.cEmail;
+  document.getElementById('t-c-lead').textContent=u.cLead;
+  document.getElementById('t-c-leadval').textContent=u.cLeadVal;
+  document.getElementById('t-fine').textContent=u.fine;
+  document.getElementById('t-footer').innerHTML=u.footer;
+  document.getElementById('t-copybtn').textContent=u.copy;
+  renderPicks(); renderFilters(); renderGrid();
+}
+
+renderPicks(); renderFilters(); renderGrid();
+
+// ---- modal ----
+function openModal(name){
+  const d = data.find(x=>x.n===name);
+  const x = details[name] || {};
+  const u = L();
+  const dishArr = (LANG==='vi'&&VI[name]&&VI[name].dishes) ? VI[name].dishes : (x.dishes||[]);
+  const dishes = dishArr.map(s=>`<li>${s}</li>`).join('');
+  const concept = xField(name,d,x,'concept','dConcept');
+  const priv = xField(name,d,x,'priv','priv');
+  const anniv = (LANG==='vi'&&VI[name]&&VI[name].anniv2!==undefined)?VI[name].anniv2:(x.anniv||d.anniv);
+  const flag = (LANG==='vi'&&VI[name]&&VI[name].flag!==undefined)?VI[name].flag:(x.flag||'');
+  const modal = document.getElementById('modal');
+  modal.innerHTML = `
+    <div class="modal-head">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div class="tag">${dField(d,'c')}</div>
+      <h2>${d.n}</h2>
+      <div class="mprice">${d.price} VND <span class="est">${d.est?u.mEst:u.mConf}</span></div>
+    </div>
+    <div class="modal-body">
+      <div class="mblock"><div class="mlabel">${u.mPlace}</div><p>${concept}</p></div>
+      ${dishes?`<div class="mblock"><div class="mlabel">${u.mDishes}</div><ul class="dish-list">${dishes}</ul></div>`:''}
+      <div class="mgrid">
+        <div class="mblock"><div class="mlabel">${u.mPriv}</div><p class="${d.priv==='yes'?'':'muted'}">${priv}</p></div>
+        <div class="mblock"><div class="mlabel">${u.mPriceD}</div><p>${x.price||d.price}</p></div>
+      </div>
+      <div class="mblock"><div class="mlabel">${u.mAnniv}</div><p>${anniv}</p></div>
+      <div class="mblock"><div class="mlabel">${u.mAwards}</div><p class="muted">${x.awards||d.awards}</p></div>
+      ${flag?`<div class="mflag">⚠ ${flag}</div>`:''}
+      <div class="mblock" style="margin-top:18px"><div class="mlabel">${u.mFind}</div><div class="mcontact">${x.contact||(d.addr+' · '+d.phone+' · '+d.hours)}</div></div>
+      ${(links[name]&&links[name].length)?`<div class="mblock"><div class="mlabel">${u.mRefs}</div><div class="mlinks">${links[name].map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join('')}</div></div>`:''}
+      <button class="mbook" onclick="bookThis('${d.n.replace(/'/g,"\\'")}')">${u.mBook(d.n)}</button>
+    </div>`;
+  document.getElementById('modalBg').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modalBg').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+function bookThis(name){
+  const d = data.find(x=>x.n===name);
+  const msg = (LANG==='vi')
+    ? `Xin chào, tôi muốn đặt bàn lãng mạn cho 2 người tại ${name} (${d.addr}) nhân dịp kỷ niệm 1000 ngày vào [NGÀY] lúc [GIỜ]. Vui lòng giữ phòng riêng hoặc bàn kín đáo, và xác nhận giá mỗi người. Đặt bằng thẻ Visa [Signature/Infinite/Business], tên [TÊN], điện thoại [SỐ]. Cảm ơn!`
+    : `Hello, I'd like to book a romantic table for 2 at ${name} (${d.addr}) for our 1000-day anniversary on [DATE] at [TIME]. Please reserve a private room or a secluded table, and confirm the per-person price. Booking under Visa [Signature/Infinite/Business] card, name [NAME], phone [NUMBER]. Thank you!`;
+  navigator.clipboard.writeText(msg).then(()=>{
+    const b=document.querySelector('.mbook'); const o=b.textContent;
+    b.textContent=L().mBooked; setTimeout(()=>b.textContent=o,1800);
+  });
+}
+
+function copyTmpl(){
+  const txt = document.getElementById('tmpl-text').innerText;
+  navigator.clipboard.writeText(txt).then(()=>{
+    const b=document.querySelector('.copy'); b.textContent=L().copied;
+    setTimeout(()=>b.textContent=L().copy,1600);
+  });
+}
+</script>
+</body>
+</html>

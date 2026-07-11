@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -165,8 +165,8 @@
 <body>
 
 <div class="langtoggle">
-  <button id="lang-en" class="on" onclick="setLang('en')">EN</button>
-  <button id="lang-vi" onclick="setLang('vi')">VI</button>
+  <button id="lang-en" onclick="setLang('en')">EN</button>
+  <button id="lang-vi" class="on" onclick="setLang('vi')">VI</button>
 </div>
 
 <header class="hero">
@@ -705,7 +705,7 @@ const links = {
 };
 
 // UI chrome strings
-let LANG = 'en';
+let LANG = 'vi';
 const UI = {
  en:{eyebrow:"Ho Chi Minh City · Visa Premium Dining 2026", title:"a thousand days, one table",
   sub:"A curated dining guide for the milestone — non-Vietnamese, private, and worth remembering. Steakhouse-led, with a few showstoppers along the river and above the skyline.",
@@ -892,7 +892,7 @@ function setLang(lang){
   renderPicks(); renderFilters(); renderGrid();
 }
 
-renderPicks(); renderFilters(); renderGrid();
+setLang(LANG);
 
 // ---- modal ----
 function openModal(name){

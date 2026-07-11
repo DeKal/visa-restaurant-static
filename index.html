@@ -163,6 +163,12 @@
     padding:10px 14px;font-size:12.5px;color:var(--blush);margin-top:6px}
   .mcontact{background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.7}
   .mcontact .k{color:var(--gold);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+  .mact{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .mact.mact-top{margin-top:0;margin-bottom:22px}
+  .mact a{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;text-decoration:none;
+    padding:9px 14px;border-radius:9px;transition:all .15s;
+    background:transparent;color:var(--gold-soft);border:1px solid var(--line)}
+  .mact a:hover{border-color:var(--gold);color:var(--gold)}
   .mlinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
   .mlinks a{font-size:12px;color:var(--gold-soft);text-decoration:none;background:rgba(217,169,78,.09);
     border:1px solid var(--line);border-radius:20px;padding:5px 12px;transition:all .15s}
@@ -237,6 +243,12 @@ const picks = [
    why:"28th-floor Japanese with panoramic views, four private areas, and a named 'Romantic Spark' anniversary set menu — plus a two-guest private setup meant for proposals."},
   {rank:"Rooftop splurge", name:"The Albion by Kirk Westaway", price:"1,850,000 ++ tasting", badge:"", top:false,
    why:"Modern British by 2-Michelin-star Kirk Westaway, on the 23rd-floor rooftop of Hôtel des Arts. A bespoke anniversary package and window-side tables over the city."},
+  {rank:"Cinematic date", name:"Dạ Dining (DẠ 夜)", price:"$$$$ (à la carte)", badge:"", top:false,
+   why:"Wong Kar Wai-inspired 1960s Hong Kong nocturne on the 26th floor of Centec Tower — modern Chinese, a 360° skyline VIP room, and live performances Thu–Sat. The most theatrical night on the list."},
+  {rank:"Hidden garden", name:"Yen Sushi Premium", price:"1,698,000–2,200,000 ++", badge:"", top:false,
+   why:"Kaiseki & omakase inside a traditional Ryotei villa — ancient trees, an old wooden gate, VIP rooms. A serene, secret-garden escape a world away from the city noise."},
+  {rank:"Lakeside rooftop", name:"The Palm Restaurant & Bar", price:"~700,000–1,500,000+", badge:"", top:false,
+   why:"A tranquil French-Mediterranean rooftop over Turtle Lake — poolside, greenery, sunset-to-starlight views. Beef Wellington and tableside duck make it quietly romantic."},
 ];
 
 // cuisine groups: Steakhouse, Japanese, Chinese, European, Fusion/Cruise, Vietnamese, Vegetarian, Korean
@@ -751,6 +763,40 @@ const IMG = {
  "Oculus":["images/02150002bansaocuadscf814-0b1a97f564.jpeg","images/02150002bansaocuabansaoc-784f3e2eeb.jpeg","images/02145958bE1BAA3nsaocE1BB-124cfbcfaa.jpg"],
 };
 
+const MAPS = {
+ "Aiii House":"https://www.google.com/maps/search/?api=1&query=Aiii%20House%2027/6%20Nguy%E1%BB%85n%20B%E1%BB%89nh%20Khi%C3%AAm%20Qu%E1%BA%ADn%201%20Ho%20Chi%20Minh%20City",
+ "An's Saigon":"https://www.google.com/maps/search/?api=1&query=An%27s%20Saigon%205A%20T%E1%BB%91ng%20H%E1%BB%AFu%20%C4%90%E1%BB%8Bnh%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%20Ho%20Chi%20Minh%20City",
+ "Black Vinegar":"https://www.google.com/maps/search/?api=1&query=Black%20Vinegar%2076%20L%C3%AA%20Lai%20Ho%20Chi%20Minh%20City",
+ "Cela":"https://www.google.com/maps/search/?api=1&query=Cela%20Vegetarian%2010%20Nguy%E1%BB%85n%20Th%C3%A0nh%20%C3%9D%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%20Ho%20Chi%20Minh%20City",
+ "Dạ Dining (DẠ 夜)":"https://www.google.com/maps/search/?api=1&query=D%E1%BA%A1%20Dining%20Centec%20Tower%2072-74%20Nguy%E1%BB%85n%20Th%E1%BB%8B%20Minh%20Khai%20Ho%20Chi%20Minh%20City",
+ "Đông Dương":"https://www.google.com/maps/search/?api=1&query=Nh%C3%A0%20h%C3%A0ng%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng%20Tr%C6%B0%C6%A1ng%20%C4%90%E1%BB%8Bnh%20Ho%20Chi%20Minh%20City",
+ "Đu Đủ Xanh":"https://www.google.com/maps/search/?api=1&query=%C4%90u%20%C4%90%E1%BB%A7%20Xanh%20178%20Hai%20B%C3%A0%20Tr%C6%B0ng%20%C4%90a%20Kao%20Ho%20Chi%20Minh%20City",
+ "Homido":"https://www.google.com/maps/search/?api=1&query=Homido%20Korean%20BBQ%2012%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%20B%E1%BA%BFn%20Ngh%C3%A9%20Ho%20Chi%20Minh%20City",
+ "Home Saigon":"https://www.google.com/maps/search/?api=1&query=Home%20Saigon%20216/4%20%C4%90i%E1%BB%87n%20Bi%C3%AAn%20Ph%E1%BB%A7%20Ho%20Chi%20Minh%20City",
+ "Li Bai":"https://www.google.com/maps/search/?api=1&query=Li%20Bai%20Sheraton%20Saigon%2088%20%C4%90%E1%BB%93ng%20Kh%E1%BB%9Fi%20Ho%20Chi%20Minh%20City",
+ "Mãn by UnicB":"https://www.google.com/maps/search/?api=1&query=M%C3%A3n%20by%20UnicB%2025B%20T%C3%BA%20X%C6%B0%C6%A1ng%20Ho%20Chi%20Minh%20City",
+ "Matsuri":"https://www.google.com/maps/search/?api=1&query=Matsuri%203-5-7%20Nguy%E1%BB%85n%20Hu%E1%BB%87%20Ho%20Chi%20Minh%20City",
+ "Mam Mam Eatery & Lounge":"https://www.google.com/maps/search/?api=1&query=Mam%20Mam%20Nexus%20Tower%2013%20Nguy%E1%BB%85n%20Si%C3%AAu%20Ho%20Chi%20Minh%20City",
+ "Nikura":"https://www.google.com/maps/search/?api=1&query=Nikura%20Nikkei%20Restaurant%20Ho%20Chi%20Minh%20City",
+ "ROS – Yacht Club":"https://www.google.com/maps/search/?api=1&query=ROS%20Yacht%20Club%2010B%20T%C3%B4n%20%C4%90%E1%BB%A9c%20Th%E1%BA%AFng%20Ho%20Chi%20Minh%20City",
+ "Rokusho Saigon":"https://www.google.com/maps/search/?api=1&query=Rokusho%20Saigon%2002%20Thi%20S%C3%A1ch%20B%E1%BA%BFn%20Ngh%C3%A9%20Ho%20Chi%20Minh%20City",
+ "Sen @ An Lam Retreat":"https://www.google.com/maps/search/?api=1&query=Sen%20An%20Lam%20Retreats%20Saigon%20River",
+ "Shamoji Robata Yaki":"https://www.google.com/maps/search/?api=1&query=Shamoji%20Robata%20Yaki%2068%20L%C3%AA%20L%E1%BB%A3i%20Ho%20Chi%20Minh%20City",
+ "Towa":"https://www.google.com/maps/search/?api=1&query=Towa%20Japanese%20Sedona%20Suites%2092-94%20Nam%20K%E1%BB%B3%20Kh%E1%BB%9Fi%20Ngh%C4%A9a%20Ho%20Chi%20Minh%20City",
+ "Yen Sushi & Sake Pub":"https://www.google.com/maps/search/?api=1&query=Yen%20Sushi%20Sake%20Pub%202B%20L%C3%AA%20Du%E1%BA%A9n%20Ho%20Chi%20Minh%20City",
+ "Yen Sushi Premium":"https://www.google.com/maps/search/?api=1&query=Yen%20Sushi%20Premium%20123%20B%C3%A0%20Huy%E1%BB%87n%20Thanh%20Quan%20Ho%20Chi%20Minh%20City",
+ "Basilico":"https://www.google.com/maps/search/?api=1&query=Basilico%20JW%20Marriott%20Saigon%20Nguy%E1%BB%85n%20Du%20L%C3%AA%20V%C4%83n%20H%C6%B0u%20Ho%20Chi%20Minh%20City",
+ "Godmother":"https://www.google.com/maps/search/?api=1&query=Godmother%2070B%20L%C3%AA%20L%E1%BB%A3i%20Ho%20Chi%20Minh%20City",
+ "JW Café":"https://www.google.com/maps/search/?api=1&query=JW%20Caf%C3%A9%20restaurant%20Ho%20Chi%20Minh%20City",
+ "Prime Steak Boutique & Chill":"https://www.google.com/maps/search/?api=1&query=PRIME%20Steak%20Boutique%20%26%20Chill%20138-142%20Pasteur%20Ho%20Chi%20Minh%20City",
+ "Stoker Woodfired Grill & Bar":"https://www.google.com/maps/search/?api=1&query=Stoker%20Woodfired%20Grill%2044%20M%E1%BA%A1c%20Th%E1%BB%8B%20B%C6%B0%E1%BB%9Fi%20Ho%20Chi%20Minh%20City",
+ "The Albion by Kirk Westaway":"https://www.google.com/maps/search/?api=1&query=The%20Albion%20by%20Kirk%20Westaway%20Hotel%20des%20Arts%20Saigon%2076-78%20Nguy%E1%BB%85n%20Th%E1%BB%8B%20Minh%20Khai%20Ho%20Chi%20Minh%20City",
+ "The Palm Restaurant & Bar":"https://www.google.com/maps/search/?api=1&query=The%20Palm%20Restaurant%20%26%20Bar%2010A%20Ph%E1%BA%A1m%20Ng%E1%BB%8Dc%20Th%E1%BA%A1ch%20Ho%20Chi%20Minh%20City",
+ "5 Senses":"https://www.google.com/maps/search/?api=1&query=5%20Senses%20Hotel%20Nikko%20Saigon%20235%20Nguy%E1%BB%85n%20V%C4%83n%20C%E1%BB%AB%20Ho%20Chi%20Minh%20City",
+ "ICON Cruise Saigon":"https://www.google.com/maps/search/?api=1&query=ICON%20Saigon%20Cruise%2005%20Nguy%E1%BB%85n%20T%E1%BA%A5t%20Th%C3%A0nh%20Ho%20Chi%20Minh%20City",
+ "Oculus":"https://www.google.com/maps/search/?api=1&query=Oculus%2054%20V%C3%B5%20V%C4%83n%20T%E1%BA%A7n%20Ho%20Chi%20Minh%20City",
+};
+
 // UI chrome strings
 let LANG = 'vi';
 const UI = {
@@ -765,7 +811,7 @@ const UI = {
   footer:'Prices researched 11 Jul 2026 from restaurant sites, Michelin, Tatler, PasGo &amp; TripAdvisor — not published in the Visa guide.<br>✓ = confirmed price · "est." = estimate. Always reconfirm the exact figure and private-room availability when you book.',
   copy:"Copy", copied:"Copied ✓", perPerson:"VND / person", est:"· est.", conf:"· ✓ confirmed", more:"View full detail", countOf:"of",
   mEst:"· estimate", mConf:"· ✓ confirmed", mPlace:"The place", mDishes:"Signature dishes", mPriv:"Private room",
-  mPriceD:"Price detail", mAnniv:"For a romantic night", mAwards:"Awards & standing", mFind:"Find it", mRefs:"References",
+  mPriceD:"Price detail", mAnniv:"For a romantic night", mAwards:"Awards & standing", mFind:"Find it", mRefs:"References", mMap:"Open in Google Maps", mSite:"Official website",
   mBook:(n)=>`Copy a booking request for ${n}`, mBooked:"Copied to clipboard ✓",
   filters:{All:"All",Steakhouse:"Steakhouse",Japanese:"Japanese",Chinese:"Chinese",European:"European",Fusion:"Fusion",Korean:"Korean",Vietnamese:"Vietnamese",Vegetarian:"Vegetarian","Private rooms":"Private rooms"}},
  vi:{eyebrow:"TP. Hồ Chí Minh · Ẩm thực Cao cấp Visa 2026", days:'Cho<span class="amp"> Đôi Ta</span>', title:"một bàn ngon",
@@ -779,7 +825,7 @@ const UI = {
   footer:'Giá được tra cứu ngày 11/7/2026 từ website nhà hàng, Michelin, Tatler, PasGo &amp; TripAdvisor — không có trong cẩm nang Visa.<br>✓ = giá đã xác nhận · "ước tính" = ước tính. Luôn xác nhận lại giá chính xác và phòng riêng khi đặt bàn.',
   copy:"Sao chép", copied:"Đã sao chép ✓", perPerson:"VNĐ / người", est:"· ước tính", conf:"· ✓ đã xác nhận", more:"Xem chi tiết", countOf:"trong",
   mEst:"· ước tính", mConf:"· ✓ đã xác nhận", mPlace:"Về nhà hàng", mDishes:"Món đặc trưng", mPriv:"Phòng riêng",
-  mPriceD:"Chi tiết giá", mAnniv:"Cho buổi tối lãng mạn", mAwards:"Giải thưởng & vị thế", mFind:"Địa chỉ & liên hệ", mRefs:"Nguồn tham khảo",
+  mPriceD:"Chi tiết giá", mAnniv:"Cho buổi tối lãng mạn", mAwards:"Giải thưởng & vị thế", mFind:"Địa chỉ & liên hệ", mRefs:"Nguồn tham khảo", mMap:"Google Map", mSite:"Trang Web",
   mBook:(n)=>`Sao chép mẫu đặt bàn cho ${n}`, mBooked:"Đã sao chép ✓",
   filters:{All:"Tất cả",Steakhouse:"Steakhouse",Japanese:"Nhật",Chinese:"Trung Hoa",European:"Âu",Fusion:"Fusion",Korean:"Hàn",Vietnamese:"Việt",Vegetarian:"Chay","Private rooms":"Có phòng riêng"}}
 };
@@ -851,6 +897,9 @@ const picksVI = {
  "ICON Cruise Saigon":{rank:"★ Điểm nhấn", why:"Trọn vẹn nhất danh sách: du thuyền sông Sài Gòn với gói kỷ niệm riêng — thực đơn tùy chỉnh, bánh, hoa, phòng VIP, nhạc sống và pháo hoa T6–CN.", badge:"Ấn tượng"},
  "Towa":{rank:"Lãng mạn trên cao", why:"Ẩm thực Nhật tầng 28 view toàn cảnh, bốn khu riêng, và set kỷ niệm 'Romantic Spark' — cùng set 2 khách dành cho cầu hôn.", badge:""},
  "The Albion by Kirk Westaway":{rank:"Sang trọng sân thượng", why:"Món Anh hiện đại bởi bếp trưởng 2 sao Michelin Kirk Westaway, trên sân thượng tầng 23 Hôtel des Arts. Gói kỷ niệm riêng và bàn cạnh cửa sổ ngắm thành phố.", badge:""},
+ "Dạ Dining (DẠ 夜)":{rank:"Hẹn hò điện ảnh", why:"Không gian Hong Kong thập niên 1960 kiểu Vương Gia Vệ trên tầng 26 Centec Tower — Hoa hiện đại, phòng VIP skyline 360° và biểu diễn trực tiếp T5–T7. Buổi tối kịch tính nhất danh sách.", badge:""},
+ "Yen Sushi Premium":{rank:"Khu vườn ẩn", why:"Kaiseki & omakase trong biệt thự Ryotei truyền thống — cây cổ thụ, cổng gỗ cũ, phòng VIP. Một chốn tĩnh lặng như khu vườn bí mật, tách biệt khỏi ồn ào phố thị.", badge:""},
+ "The Palm Restaurant & Bar":{rank:"Sân thượng bên hồ", why:"Sân thượng Pháp–Địa Trung Hải yên bình bên Hồ Con Rùa — hồ bơi, cây xanh, view từ hoàng hôn đến đêm sao. Beef Wellington và vịt phục vụ tại bàn khiến nơi đây thật lãng mạn.", badge:""},
 };
 
 function L(){return UI[LANG];}
@@ -964,6 +1013,11 @@ function openModal(name){
       <div class="mprice">${d.price} VND <span class="est">${d.est?u.mEst:u.mConf}</span></div>
     </div>
     <div class="modal-body">
+      <div class="mact mact-top">
+        ${MAPS[name]?`<a class="map" href="${MAPS[name]}" target="_blank" rel="noopener">📍 ${u.mMap}</a>`:''}
+        ${(links[name]&&links[name].length)?`<a class="site" href="${links[name][0][1]}" target="_blank" rel="noopener">🔗 ${u.mSite}</a>`:''}
+        ${(()=>{const fb=(links[name]||[]).find(l=>/facebook/i.test(l[0]));return fb?`<a class="site fb" href="${fb[1]}" target="_blank" rel="noopener">📘 Facebook</a>`:'';})()}
+      </div>
       <div class="mblock"><div class="mlabel">${u.mPlace}</div><p>${concept}</p></div>
       ${dishes?`<div class="mblock"><div class="mlabel">${u.mDishes}</div><ul class="dish-list">${dishes}</ul></div>`:''}
       <div class="mgrid">
